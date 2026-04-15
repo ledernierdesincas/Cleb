@@ -1,0 +1,3885 @@
+<!DOCTYPE html>
+<html lang = "fr">
+  <head>
+    <meta charset="UTF-8">
+    <title>plan de l'argent infini (avec revenu domination du monde)</title>
+    <div id="background1"></div>
+    
+    <!--Musiques-->
+  <audio id="Fur_jul">
+    <source src="https://ledernierdesincas.github.io/SOUND/C934C4CA-B7F6-4138-B841-49D2F36C03A9%20(1).mp4" type="video/mp4"> 
+  </audio>
+    
+    
+    
+        <div class="music-popup" id="musicPopup">
+        <div class="music-icon">
+        </div>
+        <div class="track-info">
+            <p class="track-title" id="trackTitle">Fur</p>
+            <p class="track-artist" id="trackArtist">DJchèvre</p>
+        </div>
+        <div class="equalizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+    
+    
+    <style>
+    
+
+        .music-popup {
+            position: fixed;
+            bottom:10%;
+            right: -350px;
+            width: 18%;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            transition: right 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy slide-in */
+            z-index: 1000;
+        }
+
+        /* Dark mode variant (optional) */
+        @media (prefers-color-scheme: dark) {
+            .music-popup {
+                background: #18181b;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+            .track-title { color: #f4f4f5; }
+            .track-artist { color: #a1a1aa; }
+        }
+
+        .music-popup.show {
+            right: 24px;
+        }
+
+        .music-icon {
+            width: 40px;
+            height: 40px;
+            background:url('https://uploads.onecompiler.io/43a8hwuns/44jxpzcsk/unnamed.jpg')center/cover;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border:solid 1px #444e5c;
+        }
+
+
+        .track-info {
+            margin-left: 14px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .track-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0 0 4px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            color: #f4f4f5;
+            font-family: sans-serif;
+        }
+
+        .track-artist {
+            font-size: 12px;
+            margin: 0;
+            color: white;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family:sans-serif;
+        }
+
+        .equalizer {
+            display: flex;
+            gap: 3px;
+            height: 16px;
+            align-items: flex-end;
+            margin-left: 10px;
+        }
+
+        .bar {
+            width: 3px;
+            background: #10b981;
+            border-radius: 2px;
+            animation: bounce 1s infinite ease-in-out;
+            transform-origin: bottom;
+        }
+        .bar:nth-child(1) { animation-delay: 0.0s; height: 60%; }
+        .bar:nth-child(2) { animation-delay: 0.2s; height: 100%; }
+        .bar:nth-child(3) { animation-delay: 0.4s; height: 80%; }
+        @keyframes bounce {
+            0%, 100% { transform: scaleY(0.4); }
+            50% { transform: scaleY(1); }
+        }
+          @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  body{
+    user-select:none;
+     overflow-y: hidden;
+     overflow-x: hidden;
+  }
+  dialog{
+    user-select:none;
+  }
+      .chance_message{
+        position: absolute;
+        z-index: 1000;
+        width: 20%;
+        left: 0%;
+        top: 0%;
+        text-align: center;
+        height: 50px;
+        background-color: transparent;
+        padding:-10px;
+        border: transparent;
+        color: black;
+        font-weight:bold;
+      }
+      .chance{
+        background-color: darkgray;
+        color: white;
+        width: 21%;
+        border: solid black 0px;
+        position: absolute;
+        height:120px;
+        left:0%;
+        top:0%;
+        border-radius:8px;
+      }
+      .load_chance{
+        background-color:#83C482;
+        position: absolute;
+        height: 53px;
+        width: 0%;
+        top: 0%;
+        left: 0%;
+        border: solid lightgray 1px;
+        border-radius:8px;
+        box-shadow:0 0 30px darkgreen;
+      }
+      .load_chance_border{
+        background-color: transparent;
+        position: absolute;
+        height: 50px;
+        width: 20.5%;
+        top: 0%;
+        left: 0%;
+        border-radius:0px;
+        border: solid black 3px;
+        z-index: 999;
+      }
+      .chance_message, .chance, .load_chance, .load_chance_border {
+        position: fixed;  /* changer absolute → fixed */
+      }
+      
+    </style>
+    <script>
+      //musiques
+      
+       const Fur_jules = document.getElementById('Fur_jul');
+        
+        
+        let hideTimeout;
+
+        function playMusic(title = "Fur", artist = "DJchèvre") {
+          Fur_jules.play()
+            const popup = document.getElementById('musicPopup');
+            
+            document.getElementById('trackTitle').textContent = title;
+            document.getElementById('trackArtist').textContent = artist;
+
+
+            popup.classList.add('show');
+
+            clearTimeout(hideTimeout);
+
+            // Timer pour fermer
+            hideTimeout = setTimeout(() => {
+                popup.classList.remove('show');
+            }, 5000);
+            Fur_jules.onended = function() {
+    alert("Fini");
+};
+        }
+        
+        
+
+
+        
+        //Démarage de la musique
+        setTimeout(playMusic,3000)
+    </script>
+      
+      
+    
+  </head>
+  <!--tente la chance-->
+  <body>
+
+
+  <!--Applications-->
+  <button id="animalerieapp" onclick="animalerie_open()"></button>
+ <button id="baladoapp" onclick="balado.showModal()"></button> 
+  <button id="shopapp" onclick="shop_open()"></button>
+<button id="settingsapp" onclick="i_parametre.showModal()"></button>
+  
+  <style>
+  #settingsapp{
+    background: url("https://uploads.onecompiler.io/43a8hwuns/44j3z38kn/image%20(16).avif") center/cover;
+    height: 10%;
+    width: 6%;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: absolute;
+    left:43%;
+    border:solid black 1px;
+    z-index:4;
+    top:10%;
+  }
+  #settingsapp:hover {
+    transform: scale(1.025) translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+  }
+    #animalerieapp{
+    background: url("https://uploads.onecompiler.io/43a8hwuns/44hajj7cf/image%20(6).avif") center/cover;
+    height: 10%;
+    width: 6%;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: absolute;
+    left:50%;
+    border:solid black 1px;
+    z-index:4;
+    top:10%;
+  }
+  #animalerieapp:hover {
+    transform: scale(1.025) translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+  }
+    #baladoapp{
+    background: url("https://uploads.onecompiler.io/43a8hwuns/44hajj7cf/image%20(7).avif") center/cover;
+    height: 10%;
+    width: 6%;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: absolute;
+    left:58%;
+    border:solid black 1px;
+    top:10%;
+    z-index:4;
+  }
+  #baladoapp:hover {
+    transform: scale(1.025) translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+  }
+    #shopapp{
+    background: url("https://uploads.onecompiler.io/43a8hwuns/44hajj7cf/image%20(8).avif") center/cover;
+    height: 10%;
+    width: 6%;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: absolute;
+    left:66%;
+    border:solid black 1px;
+    top:10%;
+    z-index:4;
+  }
+  #shopapp:hover {
+    transform: scale(1.025) translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+  }
+    
+    
+  </style>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!--Séparation des chiens-->
+ 
+  <style>
+    #separation_chiens{
+      position:fixed;
+      left:21%;
+      top:0%;
+      height:100%;
+      width:0.5%;
+      background-color:black;
+    }
+#barreverticale {
+  position: fixed; /* Use fixed for consistent positioning */
+  height: 100%;
+  width: 60%;
+  transform: translateX(0%);  /* Offscreen to the left */
+  transition: all 0.6s ease;
+  z-index: 0;  /* Ensure it appears above other elements */
+  opacity:100%;
+  opacity:100%;
+}
+
+#showvertical{
+  position:absolute;
+  top:30%;
+  width:1%;
+  height:20%;
+  background-color:gray;
+  border:solid black 1px;
+  border-radius:3px;
+  opacity:0.4;
+  z-index:5;
+  left:12.8%;
+  cursor:pointer;
+  transition: all 0.6s ease;
+}
+
+  </style>
+  <div id="showvertical" onclick="showvert()"></div>
+  <div id="barreverticale">
+    <script>
+      
+      vertshow="oui"
+      function showvert() {
+        if (vertshow == "non"){
+        document.getElementById('barreverticale').style.width="60%";
+        document.getElementById('barreverticale').style.opacity=1
+        document.getElementById('showvertical').style.left="12.8%"
+        document.getElementById('barrepage').style.left="12.85%"
+        document.getElementById('barrepage').style.width="87%"
+        vertshow="oui"
+
+        }
+        else {
+ document.getElementById('barreverticale').style.width="0%";
+        document.getElementById('barreverticale').style.opacity=0
+        document.getElementById('showvertical').style.left="0%"
+        document.getElementById('barrepage').style.left="0%"
+        document.getElementById('barrepage').style.width="100%"
+
+        vertshow="non"
+        }
+      }
+    </script>
+  
+   <button alt="bouton tente la chance" class="chance_message" onclick="chanceux()"><a id="message_chanceux">Tente ta chance</a></button>
+
+  <div class="chance"></div><br><br><br><br>
+  
+  <div class="load_chance"> </div>
+  <div class="load_chance_border"> </div>
+  
+  
+  <div id = "zone_chiens">
+  <!--Cleb-->
+  <div id="p_cleb_div" alt="bouton ouvrir cleb" onclick="i_cleb.showModal()">
+  <p id="p_cleb"><b><a id="chien1">Cleb</a></b></p>
+  <p id="niv_cleb"> <b>Niveau:&nbsp<a id="cleb"></a></b></p>
+  </div>
+  <!-- Douggy -->
+  <div class="p_chien_div" alt="bouton ouvrir douggy" id="p_douggy_div" onclick="i_douggy.showModal()">
+  <p class="p_cleb"><b><a id="chien2">Douggy</a></b></p>
+  <p class="niv_cleb"> <b>Niveau:&nbsp<a id="douggy"></a></b></p>
+  </div>
+  <!-- Pitou -->
+  <div class="p_chien_div" alt="bouton ouvrir pitou" id="p_pitou_div" onclick="i_pitou.showModal()">
+  <p class="p_cleb"><b><a id="chien3">Pitou</a></b></p>
+  <p class="niv_cleb"> <b>Niveau:&nbsp<a id="pitou"></a></b></p>
+  </div>
+  <!-- Lucie -->
+  <div class="p_chien_div" alt="bouton ouvrir lucie" id="p_lucie_div" onclick="i_lucie.showModal()">
+  <p class="p_cleb"><b><a id="chien4">Lucy</a></b></p>
+  <p class="niv_cleb"> <b>Niveau:&nbsp<a id="lucie"></a></b></p>
+  </div>
+  <!-- Numero5 -->
+  <div class="p_chien_div" alt="bouton ouvrir numero5" id="p_numero5_div" onclick="i_numero5.showModal()">
+  <p class="p_cleb"><b><a id="chien5">Coccinelle</a></b></p>
+  <p class="niv_cleb"> <b>Niveau:&nbsp<a id="numero5"></a></b></p>
+  </div>
+  <!-- Numero6 -->
+    <div class="p_chien_div" alt="bouton ouvrir numero6" id="p_numero6_div" onclick="i_numero6.showModal()">
+    <p class="p_cleb"><b><a id="chien6">Miya</a></b></p>
+    <p class="niv_cleb"> <b>Niveau:&nbsp<a id="numero6"></a></b></p>
+    </div>
+  <!-- Numero7 -->
+    <div class="p_chien_div" alt="bouton ouvrir numero7" id="p_numero7_div" onclick="i_numero7.showModal()">
+    <p class="p_cleb"><b><a id="chien7">Numero7</a></b></p>
+    <p class="niv_cleb"> <b>Niveau:&nbsp<a id="numero7"></a></b></p>
+    </div>
+  <!-- Numero8 -->
+    <div class="p_chien_div" alt="bouton ouvrir numero8" id="p_numero8_div" onclick="i_numero8.showModal()">
+    <p class="p_cleb"><b><a id="chien8">Numero8</a></b></p>
+    <p class="niv_cleb"> <b>Niveau:&nbsp<a id="numero8"></a></b></p>
+    </div>
+  <!-- Numero9 -->
+    <div class="p_chien_div" alt="bouton ouvrir numero9" id="p_numero9_div" onclick="i_numero9.showModal()">
+    <p class="p_cleb"><b><a id="chien9">Numero9</a></b></p>
+    <p class="niv_cleb"> <b>Niveau:&nbsp<a id="numero9"></a></b></p>
+    </div>
+  <!-- Numero10 -->
+    <div class="p_chien_div" alt="bouton ouvrir numero10" id="p_numero10_div" onclick="i_numero10.showModal()">
+    <p class="p_cleb"><b><a id="chien10">Numero10</a></b></p>
+    <p class="niv_cleb"> <b>Niveau:&nbsp<a id="numero10"></a></b></p>
+    </div>
+  <!-- Numero11 -->
+    <div class="p_chien_div" alt="bouton ouvrir numero11" id="p_numero11_div" onclick="i_numero11.showModal()">
+    <p class="p_cleb"><b><a id="chien11">Numero11</a></b></p>
+    <p class="niv_cleb"> <b>Niveau:&nbsp<a id="numero11"></a></b></p>
+    </div>
+    </div>
+     <div id="separation_chiens"></div>
+    </div>
+    
+    <style>
+      #zone_chiens{
+        position: fixed;   /* fixed pour rester en place */
+        top: 53px;         /* en dessous de la barre de chance */
+        bottom: 0px;     /* au-dessus du panneau argent */
+        left: 0px;
+        width: 21%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background-color:#E4F0F2;
+      }
+    </style>
+  <script>
+    const load_chance = document.querySelector('.load_chance');
+    let largeur = 0;
+    let key_chance = 0;
+    let possibility_chance = 1;
+    const BIN_ID = "69de558936566621a8b1a34d";
+    const API_KEY = "$2a$10$W/MLa6ZhivVvOVJyLtTPg.D/nk6igJqrBjdnDB1fJzUiQ5eWr7416";
+
+    
+    setInterval(chance, 10);
+    sidjd9key = 0
+    function chance() {
+      if (key_chance == 0){
+        largeur += 0.04;
+        load_chance.style.width = largeur + "%";
+      }
+      if (key_chance == 2){
+        largeur = 0;
+        load_chance.style.width = "0%";
+        key_chance = 0;
+        sidjd9key = 0;
+      }
+      if (largeur >= 21){
+        key_chance = 1;
+        set_chanceux()
+      }
+      
+    }
+    let rde90 = 0;
+    function set_chanceux(){
+      if (sidjd9key == 0){
+        sidjd9key = 1
+        rde90 = Math.floor (Math.random () * ( 200 - 0 + 1));
+        if (rde90 >= 0 && rde90 <50){
+          message_chanceux = "+ 2$";
+          possibility_chance = 1
+        }
+        if (rde90 >= 50 && rde90 <100){
+          message_chanceux = "+ 3$";
+          possibility_chance = 2
+        }
+        if (rde90 >= 100 && rde90 <140){
+          message_chanceux = "+ 1💉";
+          possibility_chance = 3
+        } 
+        if (rde90 >= 140 && rde90 <160){
+          message_chanceux = "+ 30$";
+          possibility_chance = 4
+        } 
+        if (rde90 >= 160 && rde90 <176){
+          message_chanceux = "+ 35$";
+          possibility_chance = 5
+        } 
+        if (rde90 >= 176 && rde90 <184){
+          message_chanceux = "+ 2💉";
+          possibility_chance = 6
+        }
+        if (rde90 >= 184 && rde90 <190){
+          message_chanceux = "+ 75$";
+          possibility_chance = 7;
+        } 
+        if (rde90 >= 190 && rde90 <194){
+          message_chanceux = "+ 100$";
+          possibility_chance = 8;
+        }
+        if (rde90 >= 194 && rde90 <198){
+          message_chanceux = "+ 150$";
+          possibility_chance = 9;
+        }
+        if (rde90 == 198){
+          message_chanceux = "+ 1 notoriété";
+          possibility_chance = 10;
+        }
+        if (rde90 == 199){
+          message_chanceux = "+ 5💉";
+          possibility_chance = 11;
+        }
+        
+      }
+      document.getElementById("message_chanceux").innerHTML = message_chanceux;
+    }
+    function chanceux(){
+      if (key_chance == 1){
+        if (possibility_chance == 1){
+          money += 2;
+        }
+        if (possibility_chance == 2){
+          money += 3;
+        }
+        if (possibility_chance == 3){
+          boost += 1;
+        }
+        if (possibility_chance == 4){
+          money += 30;
+        }
+        if (possibility_chance == 5){
+          money += 35;
+        }
+        if (possibility_chance == 6){
+          boost += 2;
+        }
+        if (possibility_chance == 7){
+          money += 75;
+        }
+        if (possibility_chance == 8){
+          money += 100;
+        }
+        if (possibility_chance == 9){
+          money += 150;
+        }
+        if (possibility_chance == 10){
+          noto += 1;
+        }
+        if (possibility_chance == 11){
+          boost += 5;
+        }
+        fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+          headers: {'X-Master-Key': API_KEY}
+        })
+          .then(r => r.json())
+          .then(data => {
+            const cliquevoulu = data.record.clics + 1;
+            fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+              method: "PUT",
+              headers: {
+                'Content-Type': "application/json",
+                'X-Master-Key': API_KEY
+              },
+              body: JSON.stringify({clics: cliquevoulu})
+            })
+          })
+
+        message_chanceux = "Tente ta chance";
+        key_chance = 2;
+      }
+      ref()
+      message_chanceux = "Tente la chance";
+      document.getElementById("message_chanceux").innerHTML = message_chanceux;
+    }
+  </script>
+  
+  
+  <!--Infos-->
+  <!--cleb-->
+  <dialog id = "i_cleb">
+  <div id="i_bartop" ><b>&nbsp Infos Cleb</b></div>
+  <div id="i_therapie">
+    <p id="i_t_cleb">Thérapie: <a id="T_cleb"></a>s</p>
+    <p id="i_r_cleb">Revenus: <a id="R_cleb"></a>$</p>
+  </div>
+    <button alt="bouton améliorer cleb" onclick="U_cleb()" id="i_upgrade"><a id="P_cleb"></a>💉</button>
+    <b><p align="center"id="i_ameliorer">Améliorer</p></b>
+    <p align="center" id="i_upgrade_stats"><a id="i_U_cleb"></a></p>
+    <button alt="abbatre cleb" class="sell_dog" onclick="sell_cleb()">Abattre</button>
+  </dialog>
+  <!--douggy-->
+  <dialog id = "i_douggy">
+  <div class="i_bartop" ><b>&nbsp Infos Douggy</b></div>
+  <div class="i_therapie">
+    <p class="i_t_cleb">Thérapie: <a id="T_douggy"></a>s</p>
+    <p class="i_r_cleb">Revenus: <a id="R_douggy"></a>$</p>
+  </div>
+    <button alt="bouton améliorer douggy" onclick="U_douggy()" id="i_upgrade"><a id="P_douggy"></a>💉</button>
+    <b><p align="center" class="i_ameliorer">Améliorer</p></b>
+    <p align="center" class="i_upgrade_stats"><a id="i_U_douggy"></a></p>
+    <button alt="abbatre douggy" class="sell_dog" onclick="sell_douggy()">Abattre</button>
+  </dialog>
+  <!--pitou-->
+  <dialog id = "i_pitou">
+  <div class="i_bartop" ><b>&nbsp Infos Pitou</b></div>
+  <div class="i_therapie">
+    <p class="i_t_cleb">Thérapie: <a id="T_pitou"></a>s</p>
+    <p class="i_r_cleb">Revenus: <a id="R_pitou"></a>$</p>
+  </div>
+    <button alt="bouton améliorer pitou" onclick="U_pitou()" id="i_upgrade"><a id="P_pitou"></a>💉</button>
+    <b><p align="center" class="i_ameliorer">Améliorer</p></b>
+    <p align="center" class="i_upgrade_stats"><a id="i_U_pitou"></a></p>
+    <button alt="abbatre pitou" class="sell_dog" onclick="sell_pitou()">Abattre</button>
+  </dialog>
+  <!--lucie-->
+  <dialog id = "i_lucie">
+  <div class="i_bartop" ><b>&nbsp Infos Lucy</b></div>
+  <div class="i_therapie">
+    <p class="i_t_cleb">Thérapie: <a id="T_lucie"></a>s</p>
+    <p class="i_r_cleb">Revenus: <a id="R_lucie"></a>$</p>
+  </div>
+    <button alt="bouton améliorer lucie" onclick="U_lucie()" id="i_upgrade"><a id="P_lucie"></a>💉</button>
+    <b><p align="center" class="i_ameliorer">Améliorer</p></b>
+    <p align="center" class="i_upgrade_stats"><a id="i_U_lucie"></a></p>
+    <button alt="abbatre lucie" class="sell_dog" onclick="sell_lucie()">Abattre</button>
+  </dialog>
+  <!--numero5-->
+  <dialog id = "i_numero5">
+  <div class="i_bartop" ><b>&nbsp Infos Coccinelle</b></div>
+  <div class="i_therapie">
+    <p class="i_t_cleb">Thérapie: <a id="T_numero5"></a>s</p>
+    <p class="i_r_cleb">Revenus: <a id="R_numero5"></a>$</p>
+  </div>
+    <button alt="bouton améliorer numero5" onclick="U_numero5()" class="i_upgrade"><a id="P_numero5"></a>💉</button>
+    <b><p align="center" class="i_ameliorer">Améliorer</p></b>
+    <p align="center" class="i_upgrade_stats"><a id="i_U_numero5"></a></p>
+    <button alt="abbatre numero5" class="sell_dog" onclick="sell_numero5()">Abattre</button>
+  </dialog>
+  <!--numero6-->
+    <dialog id = "i_numero6">
+    <div class="i_bartop" ><b>&nbsp Infos Miya</b></div>
+    <div class="i_therapie">
+      <p class="i_t_cleb">Thérapie: <a id="T_numero6"></a>s</p>
+      <p class="i_r_cleb">Revenus: <a id="R_numero6"></a>$</p>
+    </div>
+      <button alt="bouton améliorer numero6" onclick="U_numero6()" id="i_upgrade"><a id="P_numero6"></a>💉</button>
+      <b><p align="center" class="i_ameliorer">Améliorer</p></b>
+      <p align="center" class="i_upgrade_stats"><a id="i_U_numero6"></a></p>
+      <button alt="abbatre numero6" class="sell_dog" onclick="sell_numero6()">Abattre</button>
+    </dialog>
+  <!--numero7-->
+    <dialog id = "i_numero7">
+    <div class="i_bartop" ><b>&nbsp Infos Numero7</b></div>
+    <div class="i_therapie">
+      <p class="i_t_cleb">Thérapie: <a id="T_numero7"></a>s</p>
+      <p class="i_r_cleb">Revenus: <a id="R_numero7"></a>$</p>
+    </div>
+      <button alt="bouton améliorer numero7" onclick="U_numero7()" id="i_upgrade"><a id="P_numero7"></a>💉</button>
+      <b><p align="center" class="i_ameliorer">Améliorer</p></b>
+      <p align="center" class="i_upgrade_stats"><a id="i_U_numero7"></a></p>
+      <button alt="abbatre numero7" class="sell_dog" onclick="sell_numero7()">Abattre</button>
+    </dialog>
+  <!--numero8-->
+    <dialog id = "i_numero8">
+    <div class="i_bartop" ><b>&nbsp Infos Numero8</b></div>
+    <div class="i_therapie">
+      <p class="i_t_cleb">Thérapie: <a id="T_numero8"></a>s</p>
+      <p class="i_r_cleb">Revenus: <a id="R_numero8"></a>$</p>
+    </div>
+      <button alt="bouton améliorer numero8" onclick="U_numero8()" id="i_upgrade"><a id="P_numero8"></a>💉</button>
+      <b><p align="center" class="i_ameliorer">Améliorer</p></b>
+      <p align="center" class="i_upgrade_stats"><a id="i_U_numero8"></a></p>
+      <button alt="abbatre numero8" class="sell_dog" onclick="sell_numero8()">Abattre</button>
+    </dialog>
+  <!--numero9-->
+    <dialog id = "i_numero9">
+    <div class="i_bartop" ><b>&nbsp Infos Numero9</b></div>
+    <div class="i_therapie">
+      <p class="i_t_cleb">Thérapie: <a id="T_numero9"></a>s</p>
+      <p class="i_r_cleb">Revenus: <a id="R_numero9"></a>$</p>
+    </div>
+      <button alt="bouton améliorer numero9" onclick="U_numero9()" id="i_upgrade"><a id="P_numero9"></a>💉</button>
+      <b><p align="center" class="i_ameliorer">Améliorer</p></b>
+      <p align="center" class="i_upgrade_stats"><a id="i_U_numero9"></a></p>
+      <button alt="abbatre numero9" class="sell_dog" onclick="sell_numero9()">Abattre</button>
+    </dialog>
+  <!--numero10-->
+    <dialog id = "i_numero10">
+    <div class="i_bartop" ><b>&nbsp Infos Numero10</b></div>
+    <div class="i_therapie">
+      <p class="i_t_cleb">Thérapie: <a id="T_numero10"></a>s</p>
+      <p class="i_r_cleb">Revenus: <a id="R_numero10"></a>$</p>
+    </div>
+      <button alt="bouton améliorer numero10" onclick="U_numero10()" id="i_upgrade"><a id="P_numero10"></a>💉</button>
+      <b><p align="center" class="i_ameliorer">Améliorer</p></b>
+      <p align="center" class="i_upgrade_stats"><a id="i_U_numero10"></a></p>
+      <button alt="abbatre numero10" class="sell_dog" onclick="sell_numero10()">Abattre</button>
+    </dialog>
+  <!--numero11-->
+    <dialog id = "i_numero11">
+    <div class="i_bartop" ><b>&nbsp Infos Numero11</b></div>
+    <div class="i_therapie">
+      <p class="i_t_cleb">Thérapie: <a id="T_numero11"></a>s</p>
+      <p class="i_r_cleb">Revenus: <a id="R_numero11"></a>$</p>
+    </div>
+      <button alt="bouton améliorer numero11" onclick="U_numero11()" id="i_upgrade"><a id="P_numero11"></a>💉</button>
+      <b><p align="center" class="i_ameliorer">Améliorer</p></b>
+      <p align="center" class="i_upgrade_stats"><a id="i_U_numero11"></a></p>
+      <button alt="abbatre numero11" class="sell_dog" onclick="sell_numero11()">Abattre</button>
+    </dialog>
+
+  
+  
+  <!--applications -->
+  <!--shop-->
+ 
+  <dialog id = "shop">
+    <div class="i_bartop">&nbsp Shop</div><br><br>
+    <!--Vézina (ancien amazon)-->
+    <button alt="acheter du boost à Vézina" onclick="A_buy()" id="buyvezina">Achetez <a id="nb_A"></a> boost à Vézina</button>
+    <p id="pricevezina">pour seulement <a id ="t_A"></a> $</p>
+    <!--random_dude-->
+    <button alt="acheter du boost à Random Dude" onclick="R_buy()" id="buyrandom">Achetez <a id="nb_R"></a> boost à Random-Dude</button>
+    <p id="pricerandom">pour seulement <a id ="t_R"></a> $</p>
+  </dialog>
+  
+  <style>
+    #buyvezina{
+      position:absolute;
+      background-color:#F5DCD5;
+      border-radius:5px;
+      cursor:pointer;
+      left:5%;
+      width:43%;
+      transition:all 1s ease;
+    }
+    #pricevezina{
+      position:absolute;
+      left:5%;
+      width:43%;
+      top:17%;
+    }
+    #buyrandom{
+      position:absolute;
+      background-color:#BDD0F2;
+      border-radius:5px;
+      cursor:pointer;
+      left:50%;
+      width:43%;
+      transition:all 1s ease;
+    }
+    #pricerandom{
+      position:absolute;
+      left:50%;
+      width:43%;
+      top:17%;
+    }
+    
+    
+  </style>
+  <!--animalerie-->
+  <dialog id="animalerie">
+    <div class="i_bartop">&nbsp; Animalerie</div>
+    <svg width="100%" height=840px>
+      <line x1=50% y1=0 x2=50% y2=840px style="stroke:black;stroke-width:2" />
+    </svg>
+    <!--douggy-->
+    <button alt="acheter douggy" class="acheter_chien" id="acheter_douggy" onclick="buy_douggy()"><b>Douggy<br></b>20$</button>
+    <!--Pitou-->
+    <button alt="acheter pitou" class="acheter_chien" id="acheter_pitou" onclick="buy_pitou()"><b>Pitou<br></b>800$</button>
+    <!--Lucie-->
+    <button alt="acheter lucie" class="acheter_chien" id="acheter_lucie" onclick="buy_lucie()"><b>Lucy<br></b>1 500$</button>
+    <!--Numero5-->
+    <button alt="acheter numero5" class="acheter_chien" id="acheter_numero5" onclick="buy_numero5()"><b>Coccinelle<br></b>2 100$</button>
+    <!--Numero6-->
+    <button alt="acheter numero6" class="acheter_chien" id="acheter_numero6" onclick="buy_numero6()"><b>Miya<br></b>2 500$</button>
+    <!--Numero7-->
+    <button alt="acheter numero7" class="acheter_chien" id="acheter_numero7" onclick="buy_numero7()"><b>Numero7<br></b>2 800$</button>
+    <!--Numero8-->
+    <button alt="acheter numero8" class="acheter_chien" id="acheter_numero8" onclick="buy_numero8()"><b>Numero8<br></b>3 000$</button>
+    <!--Numero9-->
+    <button alt="acheter numero9" class="acheter_chien" id="acheter_numero9" onclick="buy_numero9()"><b>Numero9<br></b>3 000$</button>
+    <!--Numero10-->
+    <button alt="acheter numero10" class="acheter_chien" id="acheter_numero10" onclick="buy_numero10()"><b>Numero10<br></b>3 000$</button>
+    <!--Numero11-->
+    <button alt="acheter numero11" class="acheter_chien" id="acheter_numero11" onclick="buy_numero11()"><b>Numero11<br></b>3 000$</button>
+
+      </dialog>
+      <!--Balado-->
+      <dialog id="balado">
+  
+      <div id="b_bartop" ><b>&nbsp Balado</b></div>
+      
+      
+  <button alt="-2 minutes" id="tempsmoins" onclick="timedown()"><b>-</b></button>
+ <p id="temps"><a id="valeuretemps">20</a>&nbsp;min</p>
+  <button alt="+2 minutes" id="tempsplus" onclick="timeup()"><b>+</b></button>
+  
+  <button alt="-1 invité" id="invitemoins" onclick="invitedown()"><b>-</b></button>
+ <p id="invite"><a id="valeureinvite">2</a>&nbsp;invité</p>
+  <button alt="+1 invité" id="inviteplus" onclick="inviteup()"><b>+</b></button>
+  
+ <button alt="-1 publicité" id="pubmoins" onclick="pubdown()"><b>-</b></button>
+ <p id="pub"><a id="valeurepub">1</a>&nbsp;publicité</p>
+  <button alt="+1 publicité" id="pubplus" onclick="pubup()"><b>+</b></button>
+  
+  <div id="separebalado"></div>
+  
+  <p id="cout">Coût : -<a id="coutbalado">67</a>$</p>
+  <p id="notoriete">Notoriété : <a id="notorietebalado">jules</a></p>
+  <p id="revenu">Revenus : +<a id="revenubalado">allo</a>$</p>
+  <button alt="lancer le balado" id="lancerbalado" onclick="launchbalado()">Lancer l'épisode</button>
+  <div id="barrebalado"></div>
+   <div id="barrebalado2"></div>
+</dialog>
+
+
+
+<dialog id="backgroundselection"></dialog>
+
+<div id="barrepage">
+  <p id="money_logo"><a id="money"></a> $</p>
+  <p id="boost_logo"><a id="boost"></a>💉</p>
+  <p id="noto_logo"><a id="noto"></a> Notoriété</p>
+  
+  
+</div>
+<div id="time_carre"><p id="currentTime"></p></div>
+<script>
+function showTime() {
+	document.getElementById('currentTime').innerHTML = new Date().toLocaleTimeString();
+}
+showTime();
+setInterval(function () {
+	showTime();
+}, 1000);
+</script>
+<style>
+#background1{
+  position:absolute;
+  top:0%;
+  width:79%;
+  left:21.5%;
+  height:95%;
+  z-index:0;
+  opacity:0.8;
+}
+  #barrepage{
+    position:absolute;
+    background-color:#2a2d33;
+    width:87%;
+    height:40px;
+    bottom:-1px;
+    left:12.85%;
+    transition:all 0.6s ease;
+  }
+  #currentTime{
+    
+    font-weight:bold;
+    font-family:Times New Roman;
+    font-size:20px;
+    background-color:lightgray;
+    padding:8px;
+    border:solid black 1px;
+    
+  }
+  #time_carre{
+    position:absolute;
+    bottom:29px;
+    height:29px;
+    right:0px;
+    
+  }
+</style>
+
+
+
+
+<!--###############################################################
+###################################################################
+###################################################################
+################################################################-->
+
+<dialog id="i_parametre">
+  <div class="i_bartop" ><b>&nbsp; Paramètres</b></div><br><br>
+  <label>Alertes</label> <button id="alertbutton" onclick="changealert()">On</button><br><br>
+  <label>Musique</label> <button id="musicbutton" onclick="changemusic()">On</button><br><br>
+  
+<button onclick="complete_reset()" id="resetprogress">Réinitialiser ton progrès</button><br><br>
+  <button onclick="entrerCodeDeTriche()" id="codetriche">Code de triche</button><br><br>
+ <button onclick="change_bg_ouvrir()" id="changebackground">Changer le fond d'écran</button><br><br>
+</dialog>
+<style>
+#musicbutton{
+  background-color:#98E68E;
+    border-radius:2px;
+    cursor:pointer;
+     box-shadow: 0 0px 2px black
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+  #alertbutton{
+    background-color:#98E68E;
+    border-radius:2px;
+    cursor:pointer;
+     box-shadow: 0 0px 2px black
+    transition: all 1s ease;
+  }
+</style>
+<script>
+  switch_music="on"
+  switch_alerte="on"
+  function changealert() {
+    if (switch_alerte =="on"){
+      document.getElementById('alertbutton').innerHTML="Off";
+      document.getElementById('alertbutton').style.background="#AD4C59"
+      switch_alerte="off"
+    }
+    else {
+    document.getElementById('alertbutton').innerHTML="On";
+    document.getElementById('alertbutton').style.background="#98E68E";
+          switch_alerte="on"
+    }
+  }
+  function changemusic() {
+    if (switch_music =="on"){
+      switch_music="off"
+      document.getElementById('musicbutton').innerHTML="Off";
+      document.getElementById('musicbutton').style.background="#AD4C59"
+    }
+    else{
+      document.getElementById('musicbutton').innerHTML="On";
+      document.getElementById('musicbutton').style.background="#98E68E"
+      switch_music="on"
+    }
+  }
+</script>
+<style>
+  #i_parametre{
+    width: 300px;
+    animation: fadeIn 0.3s ease-out;
+    overflow-x: hidden;
+  }
+  #change_bg{
+    width: 75%;
+    height: 335px;
+    animation: fadeIn 0.3s ease-out;
+    overflow-x: hidden;
+  }
+  #resetprogress{
+    cursor:pointer;
+    background-color:#EFFADE;
+    border:solid black 2px;
+    padding:2px;
+    border-radius:2px;
+  }
+  #codetriche{
+    cursor:pointer;
+    background-color:#96FA96;
+    border:solid black 2px;
+    padding:2px;
+    border-radius:2px;
+  }
+  #changebackground{
+    cursor:pointer;
+    background-color:#CCFFFE;
+    border:solid black 2px;
+    padding:2px;
+    border-radius:2px;
+  }
+  .choix_image{
+    border: solid black 2px;
+    height: 125px;
+    width: 28%;
+    background-color: yellow;
+    position: absolute;
+  }
+  #choix_image1{
+    top:75px;
+    left: 4%;
+      cursor:pointer;
+      overflow:hidden;
+  }
+  #image1_demo{
+    height:100%;
+    width:100%;
+    transition:all 1s ease;
+  }
+  
+  #image1_demo:hover{
+    width:110%;
+    height:110%;
+  }
+  #image2_demo{
+    height:100%;
+    width:100%;
+    transition:all 1s ease;
+  }
+  #image2_demo:hover{
+    width:110%;
+    height:110%;
+  }
+  #image3_demo{
+    height:100%;
+    width:100%;
+    transition:all 1s ease;
+  }
+  #image3_demo:hover{
+    width:110%;
+    height:110%;
+  }
+  #image4_demo{
+    height:100%;
+    width:100%;
+    transition:all 1s ease;
+  }
+  #image4_demo:hover{
+    width:110%;
+    height:110%;
+  }
+  #image5_demo{
+    height:100%;
+    width:100%;
+    transition:all 1s ease;
+  }
+  #image5_demo:hover{
+    width:110%;
+    height:110%;
+  }
+  #image6_demo{
+    height:100%;
+    width:100%;
+    transition:all 1s ease;
+  }
+  #image6_demo:hover{
+    width:110%;
+    height:110%;
+  }
+  #choix_image2{
+    top:210px;
+    left: 4%;
+    cursor:pointer;
+    overflow:hidden;
+  }
+  #choix_image3{
+    top:75px;
+    left: 36%;
+      cursor:pointer;
+          overflow:hidden;
+  }
+  #choix_image4{
+    top:210px;
+    left: 36%;
+      cursor:pointer;
+          overflow:hidden;
+  }
+  #choix_image5{
+    top:75px;
+    left: 68%;
+      cursor:pointer;
+          overflow:hidden;
+  }
+  #choix_image6{
+    top:210px;
+    left: 68%;
+      cursor:pointer;
+          overflow:hidden;
+  }
+  
+  html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  }
+  
+</style>
+
+<dialog id="change_bg">
+  <div class="i_bartop" ><b>&nbsp; Fonds d'écran</b></div>
+  <div onclick="change_for_img(1)" class="choix_image" id="choix_image1"><img id="image1_demo"alt="image1" src="https://uploads.onecompiler.io/43a8hwuns/44hh473wq/image%20(10).avif"></div>
+  <div onclick="change_for_img(2)" class="choix_image" id="choix_image2"><img id="image2_demo"alt="image2" src="https://uploads.onecompiler.io/43a8hwuns/44jnms85s/image%20(14).avif"></div>
+  <div onclick="change_for_img(3)" class="choix_image" id="choix_image3"><img id="image3_demo"alt="image3" src="https://uploads.onecompiler.io/43a8hwuns/44jnms85s/image%20(13).avif"> </div>
+  <div onclick="change_for_img(4)" class="choix_image" id="choix_image4"> <img id="image4_demo"alt="image4" src="https://uploads.onecompiler.io/43a8hwuns/44jnms85s/image%20(12).avif"></div>
+  <div onclick="change_for_img(5)" class="choix_image" id="choix_image5"> <img id="image5_demo"alt="image5" src="https://uploads.onecompiler.io/43a8hwuns/44jnms85s/image%20(11).avif"></div>
+  <div onclick="change_for_img(6)" class="choix_image" id="choix_image6"><img id="image6_demo"alt="image6" src="https://uploads.onecompiler.io/43a8hwuns/44jnms85s/image%20(17).avif"> </div>
+</dialog>
+
+
+<dialog id="tricheur">
+  <input type="text" id="code_entree" placeholder="Entrez un code de triche" />
+  <input id="savetriche" type="button" value="Enregistrer" onclick="enregistrer_codeDeTriche()" />
+</dialog>
+
+<style>
+#tricheur{
+  background-color:black;
+  border-radius:5px;
+  border: solid lightgreen 2px;
+}
+#code_entree{
+background-color:#1F241F;
+color:lightgreen;
+}
+#savetriche{
+  background-color:#394D39;
+  border:none;
+  color:white;
+  cursor:pointer;
+}
+  body {
+    background-image: url('');
+    background-size: cover;  /* adapte l'image à tout l'écran */
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+</style>
+
+<script>
+  function change_for_img(choix){
+    if (choix == 1){
+      bk_image_select = "https://uploads.onecompiler.io/43a8hwuns/44hh473wq/image%20(10).avif";
+      document.body.style.backgroundImage = `url('${bk_image_select}')`;
+      document.body.style.backgroundPosition = "center";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
+    }
+    if (choix == 2){
+      bk_image_select = "https://uploads.onecompiler.io/43a8hwuns/44jnms85s/image%20(14).avif";
+      document.body.style.backgroundImage = `url('${bk_image_select}')`;
+      document.body.style.backgroundPosition = "center";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
+    }
+    if (choix == 3){
+      bk_image_select = "https://uploads.onecompiler.io/43a8hwuns/44jnms85s/image%20(13).avif";
+      document.body.style.backgroundImage = `url('${bk_image_select}')`;
+      document.body.style.backgroundPosition = "center";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
+    }
+    if (choix == 4){
+      bk_image_select = "https://uploads.onecompiler.io/43a8hwuns/44jnms85s/image%20(12).avif";
+      document.body.style.backgroundImage = `url('${bk_image_select}')`;
+      document.body.style.backgroundPosition = "center";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
+    }
+    if (choix == 5){
+      bk_image_select = "https://uploads.onecompiler.io/43a8hwuns/44jnms85s/image%20(11).avif";
+      document.body.style.backgroundImage = `url('${bk_image_select}')`;
+      document.body.style.backgroundPosition = "center";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
+    }
+    if (choix == 6){
+      bk_image_select = "https://uploads.onecompiler.io/43a8hwuns/44jnms85s/image%20(17).avif";
+      document.body.style.backgroundImage = `url('${bk_image_select}')`;
+      document.body.style.backgroundPosition = "center";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundRepeat = "no-repeat";
+    }
+  }
+  
+  bk_image_select = "https://uploads.onecompiler.io/43a8hwuns/44hh473wq/image%20(10).avif";
+  
+  document.body.style.backgroundImage = `url('${bk_image_select}')`;
+  document.body.style.backgroundPosition = "center";
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundRepeat = "no-repeat";
+
+  
+  switch_alerte = "on"
+  switch_son = "on"
+  let code_de_triche_originel = "e_rien_pantoute";
+  
+  function on_alert(){
+    switch_alerte = "on"
+  }
+  function off_alert(){
+    switch_alerte = "off"
+  }
+  function on_son(){
+    switch_son = "on"
+  }
+  function off_son(){
+    switch_son = "off"
+  }
+  
+  function entrerCodeDeTriche(){
+    i_parametre.close();
+    tricheur.showModal();
+  }
+  function enregistrer_codeDeTriche(){
+    const inputxmd = document.getElementById("code_entree");
+    code_de_triche_originel = inputxmd.value;
+    if (code_de_triche_originel == "jules"){
+      tricheur.close()
+      alert("Jackpot!")
+      money += 100_000
+      boost += 10_000
+      noto += 1_000
+      ref()
+    }
+    else{
+      alert("Ce code n'existe pas.")
+    }
+    code_de_triche_originel = "e_rien_pantoute"
+  }
+  
+  function complete_reset(){
+    if(confirm("Voulez-vous vraiment réinitialiser le jeu ?")){
+      STO = STO + "_" + Date.now();  // Crée une clé unique
+      localStorage.setItem("STO", STO);
+      location.reload();
+      
+    
+      alert("Jeu réinitialisé !");
+    
+  } else {
+
+    alert("Réinitialisation annulée");
+  }
+  }
+  
+  function change_bg_ouvrir(){
+    i_parametre.close();
+    change_bg.showModal();
+  }
+</script>
+
+
+
+
+
+
+
+<style>
+  #bouton_balado{
+    position: fixed;
+    right: 10px;
+    top: 20px;
+  }
+  #bouton_animalerie{
+    position: fixed;
+    right: 10px;
+    top: 50px;
+  }
+  #bouton_shop{
+    position: fixed;
+    right: 10px;
+    top: 80px;
+  }
+</style>
+<style>
+.p_chien_div{
+  margin-top: 20px;
+  margin-left:1%;
+}
+#barrebalado{
+  z-index:2;
+  position:absolute;
+  left:45.5%;
+  background-color:green;
+  height:10%;
+  width:0%;
+  top:83%;
+  border:solid black 2px;
+}
+#barrebalado2{
+  z-index:1;
+  position:absolute;
+  left:45.5%;
+  background-color:white;
+  height:10%;
+  width:50%;
+  top:83%;
+  border:solid black 2px;
+  border-radius:2px;
+  overflow:hidden;
+}
+#lancerbalado{
+  position:absolute;
+  left:54%;
+  top:60%;
+  height:15%;
+  width:30%;
+  border:solid black 2px;
+  border-radius:300px;
+  font-size:30px;
+  transition: background-color 0.5s ease;
+  user-select:none;
+}
+#lancerbalado:hover{
+  background-color:lightgreen;
+  cursor:pointer;
+}
+#separebalado{
+  position:absolute;
+  left:40%;
+  width:1%;
+  height:90%;
+  background-color:black;
+  top:8%;
+}
+#cout{
+  position:absolute;
+  top:8%;
+  color:black;
+  left:55%;
+  font-size:20px;
+  background-color:white;
+  border:solid black 1px;
+  border-radius:4px;
+  padding:1%;
+  width:25%;
+  text-align:center;
+transition: transform 1s ease;
+user-select:none;
+}
+#cout:hover{
+  transform:scale(1.04);
+  border:solid black 1.3px;
+  
+}
+#notoriete{
+  position:absolute;
+  top:20%;
+  color:black;
+  left:55%;
+  font-size:20px;
+  background-color:white;
+  border:solid black 1px;
+  border-radius:4px;
+  padding:1%;
+  width:25%;
+  text-align:center;
+transition: transform 1s ease;
+user-select:none;
+}
+#notoriete:hover{
+  transform:scale(1.04);
+  border:solid black 1.3px;
+  
+}
+#revenu{
+  position:absolute;
+  top:32%;
+  color:black;
+  left:55%;
+  font-size:20px;
+  background-color:white;
+  border:solid black 1px;
+  border-radius:4px;
+  padding:1%;
+  width:25%;
+  text-align:center;
+transition: transform 1s ease;
+user-select:none;
+}
+#revenu:hover{
+  transform:scale(1.04);
+  border:solid black 1.3px;
+  
+}
+    #b_bartop{
+      position:absolute;
+      width:101%;
+      left:-2px;
+      top:-1px;
+      height:20px;
+      background-color:lightgray;
+      border:2px;
+      justify-content:50%
+      user-select:none;
+      transition:background-color 0.3s ease
+    }
+     #b_bartop:hover{
+      background-color:gray;
+      cursor:default;
+    }
+  #balado{
+    background-color:darkgray;
+    width:60%;
+    height:40%;
+    border-radius:10px;
+    user-select:none;
+  overflow-y: hidden; 
+  overflow-x: hidden;
+  animation: fadeIn 0.3s ease-out;
+  border:none;
+  box-shadow: 0 25px 75px -12px black;
+  }
+  #tempsmoins{
+    top:10%;
+    position:absolute;
+    background-color:white;
+    color:black;
+    border-radius:3px;
+    font-size:15px;
+    cursor:pointer;
+    width:6%;
+    height:10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:transform 2s ease;
+    transition: background-color 1s ease;
+    user-select:none;
+  }
+  #tempsplus{
+    position:absolute;
+    background-color:white;
+    color:black;
+    border-radius:3px;
+    font-size:13px;
+    cursor:pointer;
+    width:6%;
+    height:10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    left:32%;
+    top:10%;
+    text-align:center;
+    transition:transform 2s ease;
+    transition: background-color 1s ease;
+    user-select:none;
+  }
+  #tempsplus:hover{
+    background-color:lightgreen;
+      transform: scale(1.02);
+  }
+  #tempsmoins:hover{
+    background-color:lightgreen;
+      transform: scale(1.02);
+  }
+  #temps{
+    position:absolute;
+    left:10%;
+    top:5%;
+    background-color:white;
+    padding:2px;
+    border-radius:20px;
+    border:solid gray 1px;
+    cursor:default;
+    width:20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:transform 2s ease;
+    transition: background-color 1s ease;
+    user-select:none;
+  }
+  #temps:hover{
+    transform: scale(1.05);
+    border: solid black 1px;}
+    
+  #invitemoins{
+    top:40%;
+    position:absolute;
+    background-color:white;
+    color:black;
+    border-radius:3px;
+    font-size:15px;
+    cursor:pointer;
+    width:6%;
+    height:10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:transform 2s ease;
+    transition: background-color 1s ease;
+    user-select:none;}
+    
+  #invitemoins:hover{
+    background-color:lightgreen;
+      transform: scale(1.02);
+  }
+  #inviteplus{
+    position:absolute;
+    background-color:white;
+    color:black;
+    border-radius:3px;
+    font-size:13px;
+    cursor:pointer;
+    width:6%;
+    height:10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    left:32%;
+    top:40%;
+    text-align:center;
+    transition:transform 2s ease;
+    transition: background-color 1s ease;
+    user-select:none;}
+    
+  #inviteplus:hover{
+    background-color:lightgreen;
+      transform: scale(1.02);}
+
+  #invite{
+    position:absolute;
+    left:10%;
+    top:35%;
+    background-color:white;
+    padding:2px;
+    border-radius:20px;
+    border:solid gray 1px;
+    cursor:default;
+    width:20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:transform 2s ease;
+    transition: background-color 1s ease;
+    user-select:none;}
+  #invite:hover{
+    transform: scale(1.05);
+    border: solid black 1px;}
+
+  #pubmoins{
+    top:70%;
+    position:absolute;
+    background-color:white;
+    color:black;
+    border-radius:3px;
+    font-size:15px;
+    cursor:pointer;
+    width:6%;
+    height:10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:transform 2s ease;
+    transition: background-color 1s ease;
+    user-select:none;}
+    
+  #pubmoins:hover{
+    background-color:lightgreen;
+      transform: scale(1.02);
+  }
+  #pubplus{
+    position:absolute;
+    background-color:white;
+    color:black;
+    border-radius:3px;
+    font-size:13px;
+    cursor:pointer;
+    width:6%;
+    height:10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    left:32%;
+    top:70%;
+    text-align:center;
+    transition:transform 2s ease;
+    transition: background-color 1s ease;
+    user-select:none;}
+    
+  #pubplus:hover{
+    background-color:lightgreen;
+      transform: scale(1.02);}
+
+  #pub{
+    position:absolute;
+    left:10%;
+    top:65%;
+    background-color:white;
+    padding:2px;
+    border-radius:20px;
+    border:solid gray 1px;
+    cursor:default;
+    width:20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select:none;}
+  #pub:hover{
+    transform: scale(1.05);
+    border: solid black 1px;}
+</style>
+<script>
+  timebalado=20
+  invitebalado=2
+  pubbalado=1 
+  costbalado=0
+  notoritybalado=10
+  revenuebalado=0
+  function refreshbalado() {
+    notoritybalado=0
+    notoritybalado+=timebalado*1.5
+    notoritybalado+=(timebalado*invitebalado)/2
+    notoritybalado-=3*pubbalado
+    
+    costbalado=0
+    costbalado+=(15*timebalado)+52
+    costbalado+=50*invitebalado
+    
+    revenuebalado=0
+    revenuebalado+=32*pubbalado
+     document.getElementById('coutbalado').innerHTML = costbalado
+     document.getElementById('notorietebalado').innerHTML = notoritybalado
+     document.getElementById('revenubalado').innerHTML = revenuebalado
+  }
+  refreshbalado()
+ function timedown() {
+   if (timebalado==10 || baladoswitch=="OFF"){}
+   else{
+   timebalado-=2
+  document.getElementById('valeuretemps').innerHTML = timebalado
+  refreshbalado()
+   }
+ }
+ function timeup() {
+   if (timebalado==30 || baladoswitch=="OFF"){
+   }
+   else {
+     timebalado+=2
+    
+    document.getElementById('valeuretemps').innerHTML = timebalado
+  refreshbalado()
+   }
+   
+ }
+ function invitedown() {
+   if (invitebalado==0 || baladoswitch=="OFF"){}
+   else{
+   invitebalado-=1
+  document.getElementById('valeureinvite').innerHTML = invitebalado
+  refreshbalado()
+   }
+ }
+ function inviteup() {
+   if (invitebalado==5 || baladoswitch=="OFF") {
+   }
+   else {
+     invitebalado+=1
+    document.getElementById('valeureinvite').innerHTML = invitebalado
+    refreshbalado()
+   }
+ }
+ function pubdown() {
+   if (pubbalado==0 || baladoswitch=="OFF"){}
+   else{
+   pubbalado-=1
+  document.getElementById('valeurepub').innerHTML = pubbalado
+  refreshbalado()
+   }
+ }
+ function pubup() {
+   if (pubbalado==50 || baladoswitch=="OFF"){
+   }
+   else {
+     pubbalado+=1
+    document.getElementById('valeurepub').innerHTML = pubbalado
+    refreshbalado()
+   }
+ }
+ baladoswitch="ON"
+function launchbalado() {
+  
+  if (baladoswitch=="ON" && money>=costbalado){
+    money-=costbalado
+  baladoswitch="OFF"
+  const bar = document.getElementById('barrebalado');
+  const timeMinutes = timebalado;
+  let width = 0;
+  bar.style.width = '0%';
+
+  const totalDurationMs = timeMinutes *20* 1000;
+  const refreshRateMs = 10;
+  const increment = 100 / (totalDurationMs / refreshRateMs); 
+
+  const interval = setInterval(() => {
+    width += increment;
+    if (width >= 50.5) {
+      width = 50.5;
+      clearInterval(interval);
+      baladoswitch="ON"
+      money+=revenuebalado
+      noto+=notoritybalado
+    }
+    bar.style.width = width + '%';
+  }, refreshRateMs);
+}}
+
+</script>
+  <style>
+    .var_uni{
+      left:0%;
+      position: absolute;
+      top:83%;
+      width: 21%;
+      text-align: center;
+      background-color: white;
+      height: 20%;
+      border-top:solid black 2px;
+      user-select:none;
+      border-radius:10px;
+    }
+    #money_logo{
+      top:-35%;
+      position:absolute;
+      left:5%;
+      border-radius:3px;
+      padding:2px;
+      font-weight:bold;
+        width:20%;
+        height:70%;
+      border:black 2px solid;
+      background-color:#CCF7BC;
+      text-align:center;
+      align-content:center;
+    }
+    #boost_logo{
+      top:-35%;
+      height:70%;
+      position:absolute;
+      left:30%;
+      border-radius:3px;
+      padding:2px;
+      font-weight:bold;
+        width:20%;
+      border:black 2px solid;
+      background-color:#BCF3F7;
+      text-align:center;
+      align-content:center;
+    }
+
+    #noto_logo{
+            position:absolute;
+      top:-35%;
+      left:55%;
+      height:70%;
+            width:20%;
+      border:black 2px solid;
+text-align:center;
+align-content:center;
+           background-color:#F7DBBC;
+      border-radius:3px;
+      padding:2px;
+      font-weight:bold;
+      
+    }
+    .p_chien_div {
+    border-radius: 8px;
+    border: solid black 2px;
+    width: 93%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow:hidden;
+    background-color:lightgray;
+    cursor:pointer;
+    box-shadow: 0 -2px 4px black;
+  }
+  
+  .niv_cleb{
+    font-size:20px;
+    margin-top:-6%;
+  }
+  .p_cleb{
+    font-size:20px;
+    border-radius:5px;
+    border:solid black 1px;
+    width:100%;
+    margin-top:0%;
+    background-color:#7D7456;
+  }
+  </style>
+  <style>
+  #i_douggy{
+  animation: fadeIn 0.3s ease-out;
+  }
+  .sell_dog{
+    text-align: center;
+    border: solid black 2px;
+    border-radius: 4px;
+    font-size: 18px;
+    background-color: white;
+    height: 35px;
+    margin-left: 20%;
+    width: 60%;
+    transition:background-color 1s ease;
+  }
+  .sell_dog:hover{
+    background-color: red;
+    cursor:pointer;
+    transform: scale(1.05);
+  }
+  #p_cleb_div {
+    margin-top:10px;
+    margin-left:1%;
+    border-radius: 8px;
+    border: solid black 2px;
+    width: 93%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow:hidden;
+    background-color:lightgray;
+    cursor:pointer;
+      box-shadow: 0 -2px 4px black;
+  }
+  #niv_cleb{
+    font-size:20px;
+    margin-top:-6%;
+  }
+  #p_cleb{
+    font-size:20px;
+    border-radius:5px;
+    border:solid black 1px;
+    width:100%;
+    margin-top:0%;
+    background-color:#7D7456;
+  }
+  #info_cleb{
+    background-color:gray;
+    border-radius:50px;
+    color:white;
+    font-size:30px;
+    transition:transform 1s ease;
+  }
+  #i_upgrade{
+    width:70%;
+    height:20%;
+      font-size:30px;
+      font-family: times new roman;
+      border:solid black 3px;
+      border-radius:13px;
+      padding:3px;
+      color:yellow;
+      background-color:green;
+      margin-left:15%;
+  }
+  .i_upgrade{
+    width:70%;
+    height:20%;
+      font-size:30px;
+      font-family: times new roman;
+      border:solid black 3px;
+      border-radius:13px;
+      padding:3px;
+      color:yellow;
+      background-color:green;
+      margin-left:15%;
+  }
+  #P_cleb{
+    font-size:40px;
+  }
+  #i_upgrade_stats{
+    margin-top:-5%;
+    font-size:20px;
+    font-family: sans-serif;
+  }
+  .i_upgrade_stats{
+    margin-top:-5%;
+    font-size:20px;
+    font-family: sans-serif;
+  }
+  #i_ameliorer{
+    font-size:30px;
+    margin-top:2%;
+    cursor:default;
+  }
+  .i_ameliorer{
+    font-size:30px;
+    margin-top:2%;
+    cursor:default;
+  }
+  #i_upgrade:hover{
+    cursor:pointer;
+    background-color:lightgreen;
+    color:black;
+  }
+  
+  #info_cleb:hover{
+ cursor:pointer;
+ transform: scale(1.05);
+  }
+    #i_cleb,#i_numero11,#i_douggy,#i_pitou,#i_lucie,#i_numero5,#i_numero6,#i_numero7,#i_numero8,#i_numero9,#i_numero10{
+      border-radius:5px;
+      width:300px;
+      height:300px;
+      position:relative;
+        animation: fadeIn 0.3s ease-out;
+        overflow:hidden;
+      
+    }
+    #i_bartop{
+      position:absolute;
+      width:100%;
+      left:0px;
+      top:0px;
+      height:20px;
+      background-color:lightgray;
+      border:solid gray 2px;
+      justify-content:50%
+    }
+    .i_bartop{
+      position:absolute;
+      width:100%;
+      left:0px;
+      top:0px;
+      height:20px;
+      background-color:lightgray;
+      border:solid gray 2px;
+      justify-content:50%
+    }
+    #i_bartop:hover{
+      background-color:gray;
+      cursor:default;
+    }
+    .i_bartop:hover{
+      background-color:gray;
+      cursor:default;
+    }
+    .i_close{
+      z-index:1;
+      position:absolute;
+      top:0px;
+      right:-1px;
+      background-color:lightgray;
+      color:black;
+      transition: transform 1s ease;
+      font-family:comic sans MS;
+      border:none;
+      height:20px;
+    }
+    #i_cleb_close{
+      z-index:1;
+      position:absolute;
+      top:2px;
+      right:-1px;
+      background-color:lightgray;
+      color:black;
+      transition: transform 1s ease;
+      font-family:comic sans MS;
+      border:none;
+      height:20px;
+    }
+     #i_cleb_close:hover{
+       transform: scale(1.15);
+       cursor:pointer;
+       background-color:red;
+       
+    }
+    .i_close:hover{
+       transform: scale(1.15);
+       cursor:pointer;
+       background-color:red;
+       
+    }
+    #i_t_cleb{
+      font:20px;
+      font-family:sans-serif;
+      border:solid black 2px;
+      border-radius:5px;
+      padding:3px;
+      
+    }
+    #i_t_cleb:hover{
+      background-color:lightgray;
+      cursor:default;
+    }
+    #i_r_cleb{
+      font:20px;
+      font-family:sans-serif;
+      border:solid black 2px;
+      border-radius:5px;
+      padding:3px;
+    }
+    #i_r_cleb:hover{
+      background-color:lightgray;
+      cursor:default;
+    }
+    .i_t_cleb{
+      font:20px;
+      font-family:sans-serif;
+      border:solid black 2px;
+      border-radius:5px;
+      padding:3px;
+      
+    }
+    .i_t_cleb:hover{
+      background-color:lightgray;
+      cursor:default;
+    }
+    .i_r_cleb{
+      font:20px;
+      font-family:sans-serif;
+      border:solid black 2px;
+      border-radius:5px;
+      padding:3px;
+    }
+    .i_r_cleb:hover{
+      background-color:lightgray;
+      cursor:default;
+    }
+    #i_therapie{
+      display: flex;
+      gap: 25px;
+      font-family: sans-serif;
+      font-size: 20px;
+    }
+    
+    #i_therapie{
+      margin-top: 10px;
+    }
+
+    .i_therapie {
+      display: flex;
+      gap: 25px;
+      font-family: sans-serif;
+      font-size: 20px;
+    }
+    
+    .i_therapie{
+      margin-top: 10px;
+    }
+
+  </style>
+  <!--nouveaux chiens-->
+  <style>
+    .acheter_chien{
+      position: absolute;
+      width: 45%;
+      height: 65px;
+      border: solid black 2px;
+      border-radius: 5px;
+      background-color: lightgray;
+    }
+    .acheter_chien:hover{
+      background: gray;
+    }
+    #acheter_douggy{
+      top: 40px;
+      left: 2.25%;
+    }
+    #acheter_pitou{
+      top: 120px;
+      left: 2.25%;
+    }
+    #acheter_lucie{
+      top: 200px;
+      left: 2.25%;
+    }
+    #acheter_numero5{
+      top: 280px;
+      left: 2.25%;
+    }
+    #acheter_numero6{
+      top: 360px;
+      left: 2.25%;
+    }
+    #acheter_numero7{
+      top: 440px;
+      left: 2.25%;
+    }
+    #acheter_numero8{
+      top: 520px;
+      left: 2.25%;
+    }
+    #acheter_numero9{
+      top: 600px;
+      left: 2.25%;
+    }
+    #acheter_numero10{
+      top: 680px;
+      left: 2.25%;
+    }
+    #acheter_numero11{
+      top: 760px;
+      left: 2.25%;
+    }
+    #shop{
+      justify-content: center;
+      text-align: center;
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+    animation: fadeIn 0.3s ease-out;
+    width:50%;
+    height:50%;
+    }
+    #animalerie{
+      width: 70%;
+      height: 55%;
+      animation: fadeIn 0.3s ease-out;
+       overflow-x: hidden; /* Hide horizontal scrollbar */
+    }
+  </style>
+  <!-- dialogues | fermeture -->
+<script>
+document.querySelectorAll('dialog').forEach(d => { d.addEventListener('click', (e) => { const rect = d.getBoundingClientRect(); if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) d.close(); }); });
+
+</script>
+  <!--variables-->
+  <script>
+    // stockage
+    let STO = localStorage.getItem("STO") || "LeDernierDesIncas_et_VEZZ_Cleb_Version1_clef_023498277288839990918237";
+    localStorage.setItem("STO", STO);
+
+    
+    // variables universelles
+    
+    let money = parseInt(localStorage.getItem(STO + "_money")) || 150;
+   
+    let boost = parseInt(localStorage.getItem(STO + "_boost")) || 0;
+    let progress = parseInt(localStorage.getItem(STO + "_progress")) || 0;
+    let noto = parseInt(localStorage.getItem(STO + "_noto")) || 0;
+    money_beau = new Intl.NumberFormat().format(money)
+    multiply_temps_chien = 1
+    multiply_chien = 1
+    
+    //chien Cleb (#1)
+    let cleb = parseInt(localStorage.getItem(STO + "_cleb")) || 1;
+    let T_cleb = parseInt(localStorage.getItem(STO + "_T_cleb")) || 15;
+    let R_cleb = parseInt(localStorage.getItem(STO + "_R_cleb")) || 12;
+    i_U_cleb = localStorage.getItem(STO + "_i_U_cleb") || "-1 sec, +3$"; // pour du texte
+    let P_cleb = parseFloat(localStorage.getItem(STO + "_P_cleb")) || 2; // à cause du Infinity
+    A_cleb = parseInt(localStorage.getItem(STO + "_A_cleb")) || 0;
+    //    0 = actif   |   1 = inactif
+    let cleb_show = localStorage.getItem(STO + "_cleb_show");
+    if (cleb_show === null){
+      cleb_show = 0;
+    } else {
+      cleb_show = parseInt(cleb_show);
+    }
+    
+    //chien Douggy (#2)
+    let douggy = parseInt(localStorage.getItem(STO + "_douggy")) || 1;
+    let T_douggy = parseInt(localStorage.getItem(STO + "_T_douggy")) || 15;
+    let R_douggy = parseInt(localStorage.getItem(STO + "_R_douggy")) || 12;
+    i_U_douggy = localStorage.getItem(STO + "_i_U_douggy") || "-1 sec, +3$"; // pour du texte
+    let P_douggy = parseFloat(localStorage.getItem(STO + "_P_douggy")) || 2; // à cause du Infinity
+    A_douggy = parseInt(localStorage.getItem(STO + "_A_douggy")) || 0;
+    //    0 = actif   |   1 = inactif
+    let douggy_show = localStorage.getItem(STO + "_douggy_show");
+    if (douggy_show === null){
+      douggy_show = 1;
+    } else {
+      douggy_show = parseInt(douggy_show);
+    }
+    
+    //chien Pitou (#3)
+    let pitou = parseInt(localStorage.getItem(STO + "_pitou")) || 1;
+    let T_pitou = parseInt(localStorage.getItem(STO + "_T_pitou")) || 15;
+    let R_pitou = parseInt(localStorage.getItem(STO + "_R_pitou")) || 12;
+    i_U_pitou = localStorage.getItem(STO + "_i_U_pitou") || "-1 sec, +3$"; // pour du texte
+    let P_pitou = parseFloat(localStorage.getItem(STO + "_P_pitou")) || 2; // à cause du Infinity
+    A_pitou = parseInt(localStorage.getItem(STO + "_A_pitou")) || 0;
+    //    0 = actif   |   1 = inactif
+    let pitou_show = localStorage.getItem(STO + "_pitou_show");
+    if (pitou_show === null){
+      pitou_show = 1;
+    } else {
+      pitou_show = parseInt(pitou_show);
+    }
+    //chien Lucie (#4)
+    let lucie = parseInt(localStorage.getItem(STO + "_lucie")) || 1;
+    let T_lucie = parseInt(localStorage.getItem(STO + "_T_lucie")) || 15;
+    let R_lucie = parseInt(localStorage.getItem(STO + "_R_lucie")) || 12;
+    i_U_lucie = localStorage.getItem(STO + "_i_U_lucie") || "-1 sec, +3$"; // pour du texte
+    let P_lucie = parseFloat(localStorage.getItem(STO + "_P_lucie")) || 2; // à cause du Infinity
+    A_lucie = parseInt(localStorage.getItem(STO + "_A_lucie")) || 0;
+    //    0 = actif   |   1 = inactif
+    let lucie_show = localStorage.getItem(STO + "_lucie_show");
+    if (lucie_show === null){
+      lucie_show = 1;
+    } else {
+      lucie_show = parseInt(lucie_show);
+    }
+    //chien Numero5 (#5)
+    let numero5 = parseInt(localStorage.getItem(STO + "_numero5")) || 1;
+    let T_numero5 = parseInt(localStorage.getItem(STO + "_T_numero5")) || 15;
+    let R_numero5 = parseInt(localStorage.getItem(STO + "_R_numero5")) || 12;
+    i_U_numero5 = localStorage.getItem(STO + "_i_U_numero5") || "-1 sec, +1$"; // pour du texte
+    let P_numero5 = parseFloat(localStorage.getItem(STO + "_P_numero5")) || 2; // à cause du Infinity
+    A_numero5 = parseInt(localStorage.getItem(STO + "_A_numero5")) || 0;
+    //    0 = actif   |   1 = inactif
+    let numero5_show = localStorage.getItem(STO + "_numero5_show");
+    if (numero5_show === null){
+      numero5_show = 1;
+    } else {
+      numero5_show = parseInt(numero5_show);
+    }
+//chien Numero6 (#6)
+    let numero6 = parseInt(localStorage.getItem(STO + "_numero6")) || 1;
+    let T_numero6 = parseInt(localStorage.getItem(STO + "_T_numero6")) || 15;
+    let R_numero6 = parseInt(localStorage.getItem(STO + "_R_numero6")) || 12;
+    i_U_numero6 = localStorage.getItem(STO + "_i_U_numero6") || "-1 sec, +3$"; // pour du texte
+    let P_numero6 = parseFloat(localStorage.getItem(STO + "_P_numero6")) || 2; // à cause du Infinity
+    A_numero6 = parseInt(localStorage.getItem(STO + "_A_numero6")) || 0;
+    //    0 = actif   |   1 = inactif
+    let numero6_show = localStorage.getItem(STO + "_numero6_show");
+    if (numero6_show === null){
+      numero6_show = 1;
+    } else {
+      numero6_show = parseInt(numero6_show);
+    }
+//chien Numero7 (#7)
+    let numero7 = parseInt(localStorage.getItem(STO + "_numero7")) || 1;
+    let T_numero7 = parseInt(localStorage.getItem(STO + "_T_numero7")) || 15;
+    let R_numero7 = parseInt(localStorage.getItem(STO + "_R_numero7")) || 12;
+    i_U_numero7 = localStorage.getItem(STO + "_i_U_numero7") || "-1 sec, +3$"; // pour du texte
+    let P_numero7 = parseFloat(localStorage.getItem(STO + "_P_numero7")) || 2; // à cause du Infinity
+    A_numero7 = parseInt(localStorage.getItem(STO + "_A_numero7")) || 0;
+    //    0 = actif   |   1 = inactif
+    let numero7_show = localStorage.getItem(STO + "_numero7_show");
+    if (numero7_show === null){
+      numero7_show = 1;
+    } else {
+      numero7_show = parseInt(numero7_show);
+    }
+//chien Numero8 (#8)
+    let numero8 = parseInt(localStorage.getItem(STO + "_numero8")) || 1;
+    let T_numero8 = parseInt(localStorage.getItem(STO + "_T_numero8")) || 15;
+    let R_numero8 = parseInt(localStorage.getItem(STO + "_R_numero8")) || 12;
+    i_U_numero8 = localStorage.getItem(STO + "_i_U_numero8") || "-1 sec, +1$"; // pour du texte
+    let P_numero8 = parseFloat(localStorage.getItem(STO + "_P_numero8")) || 2; // à cause du Infinity
+    A_numero8 = parseInt(localStorage.getItem(STO + "_A_numero8")) || 0;
+    //    0 = actif   |   1 = inactif
+    let numero8_show = localStorage.getItem(STO + "_numero8_show");
+    if (numero8_show === null){
+      numero8_show = 1;
+    } else {
+      numero8_show = parseInt(numero8_show);
+    }
+//chien Numero9 (#9)
+    let numero9 = parseInt(localStorage.getItem(STO + "_numero9")) || 1;
+    let T_numero9 = parseInt(localStorage.getItem(STO + "_T_numero9")) || 15;
+    let R_numero9 = parseInt(localStorage.getItem(STO + "_R_numero9")) || 12;
+    i_U_numero9 = localStorage.getItem(STO + "_i_U_numero9") || "-1 sec, +3$"; // pour du texte
+    let P_numero9 = parseFloat(localStorage.getItem(STO + "_P_numero9")) || 2; // à cause du Infinity
+    A_numero9 = parseInt(localStorage.getItem(STO + "_A_numero9")) || 0;
+    //    0 = actif   |   1 = inactif
+    let numero9_show = localStorage.getItem(STO + "_numero9_show");
+    if (numero9_show === null){
+      numero9_show = 1;
+    } else {
+      numero9_show = parseInt(numero9_show);
+    }
+//chien Numero10 (#10)
+    let numero10 = parseInt(localStorage.getItem(STO + "_numero10")) || 1;
+    let T_numero10 = parseInt(localStorage.getItem(STO + "_T_numero10")) || 15;
+    let R_numero10 = parseInt(localStorage.getItem(STO + "_R_numero10")) || 12;
+    i_U_numero10 = localStorage.getItem(STO + "_i_U_numero10") || "-1 sec, +3$"; // pour du texte
+    let P_numero10 = parseFloat(localStorage.getItem(STO + "_P_numero10")) || 2; // à cause du Infinity
+    A_numero10 = parseInt(localStorage.getItem(STO + "_A_numero10")) || 0;
+    //    0 = actif   |   1 = inactif
+    let numero10_show = localStorage.getItem(STO + "_numero10_show");
+    if (numero10_show === null){
+      numero10_show = 1;
+    } else {
+      numero10_show = parseInt(numero10_show);
+    }
+//chien Numero11 (#11)
+    let numero11 = parseInt(localStorage.getItem(STO + "_numero11")) || 1;
+    let T_numero11 = parseInt(localStorage.getItem(STO + "_T_numero11")) || 15;
+    let R_numero11 = parseInt(localStorage.getItem(STO + "_R_numero11")) || 12;
+    i_U_numero11 = localStorage.getItem(STO + "_i_U_numero11") || "-1 sec, +3$"; // pour du texte
+    let P_numero11 = parseFloat(localStorage.getItem(STO + "_P_numero11")) || 2; // à cause du Infinity
+    A_numero11 = parseInt(localStorage.getItem(STO + "_A_numero11")) || 0;
+    //    0 = actif   |   1 = inactif
+    let numero11_show = localStorage.getItem(STO + "_numero11_show");
+    if (numero11_show === null){
+      numero11_show = 1;
+    } else {
+      numero11_show = parseInt(numero11_show);
+    }
+
+    
+    
+ 
+    
+    
+    //vendeur Amazon
+    let prix_A = 0
+    let range_A = 0
+    let nb_A = 0
+    let t_A = 0
+    
+    //vendeur Random-Dude
+    let prix_R = 0
+    let range_R = 0
+    let nb_R = 0
+    let t_R = 0
+    
+  </script>
+  <!-- main -->
+  <script>
+    function hide(){
+      //cleb
+      if (cleb_show == 1){
+        document.getElementById("p_cleb_div").style.display= "none";
+      }
+      else{
+        if (cleb_show == 0){
+          document.getElementById("p_cleb_div").style.display= "block";
+        }
+      }
+      //douggy
+      if (douggy_show == 1){
+        document.getElementById("p_douggy_div").style.display= "none";
+      }
+      else{
+        if (douggy_show == 0){
+          document.getElementById("p_douggy_div").style.display= "block";
+          document.getElementById("acheter_douggy").style.backgroundColor = "gray";
+        }
+      }
+      //pitou
+      if (pitou_show == 1){
+        document.getElementById("p_pitou_div").style.display= "none";
+      }
+      else{
+        if (pitou_show == 0){
+          document.getElementById("p_pitou_div").style.display= "block";
+          document.getElementById("acheter_pitou").style.backgroundColor = "gray";
+        }
+      }
+      //lucie
+      if (lucie_show == 1){
+        document.getElementById("p_lucie_div").style.display= "none";
+      }
+      else{
+        if (lucie_show == 0){
+          document.getElementById("p_lucie_div").style.display= "block";
+          document.getElementById("acheter_lucie").style.backgroundColor = "gray";
+        }
+      }
+      //numero5
+      if (numero5_show == 1){
+        document.getElementById("p_numero5_div").style.display= "none";
+      }
+      else{
+        if (numero5_show == 0){
+          document.getElementById("p_numero5_div").style.display= "block";
+          document.getElementById("acheter_numero5").style.backgroundColor = "gray";
+        }
+      }
+      //numero6
+      if (numero6_show == 1){
+        document.getElementById("p_numero6_div").style.display= "none";
+      }
+      else{
+        if (numero6_show == 0){
+          document.getElementById("p_numero6_div").style.display= "block";
+          document.getElementById("acheter_numero6").style.backgroundColor = "gray";
+        }
+      }
+      //numero7
+      if (numero7_show == 1){
+        document.getElementById("p_numero7_div").style.display= "none";
+      }
+      else{
+        if (numero7_show == 0){
+          document.getElementById("p_numero7_div").style.display= "block";
+          document.getElementById("acheter_numero7").style.backgroundColor = "gray";
+        }
+      }
+      //numero8
+      if (numero8_show == 1){
+        document.getElementById("p_numero8_div").style.display= "none";
+      }
+      else{
+        if (numero8_show == 0){
+          document.getElementById("p_numero8_div").style.display= "block";
+          document.getElementById("acheter_numero8").style.backgroundColor = "gray";
+        }
+      }
+      //numero9
+      if (numero9_show == 1){
+        document.getElementById("p_numero9_div").style.display= "none";
+      }
+      else{
+        if (numero9_show == 0){
+          document.getElementById("p_numero9_div").style.display= "block";
+          document.getElementById("acheter_numero9").style.backgroundColor = "gray";
+        }
+      }
+      //numero10
+      if (numero10_show == 1){
+        document.getElementById("p_numero10_div").style.display= "none";
+      }
+      else{
+        if (numero10_show == 0){
+          document.getElementById("p_numero10_div").style.display= "block";
+          document.getElementById("acheter_numero10").style.backgroundColor = "gray";
+        }
+      }
+      //numero11
+      if (numero11_show == 1){
+        document.getElementById("p_numero11_div").style.display= "none";
+      }
+      else{
+        if (numero11_show == 0){
+          document.getElementById("p_numero11_div").style.display= "block";
+          document.getElementById("acheter_numero11").style.backgroundColor = "gray";
+        }
+      }
+    
+      
+      save()
+    }
+    hide()
+    
+    function save(){
+      // var universelles
+      localStorage.setItem(STO + "_money", money);
+      localStorage.setItem(STO + "_boost", boost);
+      localStorage.setItem(STO + "_progress", progress);
+      localStorage.setItem(STO + "_noto", noto);
+      
+      // chiens
+      // CLEB
+      localStorage.setItem(STO + "_cleb", cleb);
+      localStorage.setItem(STO + "_T_cleb", T_cleb);
+      localStorage.setItem(STO + "_R_cleb", R_cleb);
+      localStorage.setItem(STO + "_i_U_cleb", i_U_cleb);
+      localStorage.setItem(STO + "_P_cleb", P_cleb);
+      localStorage.setItem(STO + "_A_cleb", A_cleb);
+      localStorage.setItem(STO + "_cleb_show", cleb_show);
+      // DOUGGY
+      localStorage.setItem(STO + "_douggy", douggy);
+      localStorage.setItem(STO + "_T_douggy", T_douggy);
+      localStorage.setItem(STO + "_R_douggy", R_douggy);
+      localStorage.setItem(STO + "_i_U_douggy", i_U_douggy);
+      localStorage.setItem(STO + "_P_douggy", P_douggy);
+      localStorage.setItem(STO + "_A_douggy", A_douggy);
+      localStorage.setItem(STO + "_douggy_show", douggy_show);
+      // PITOU
+      localStorage.setItem(STO + "_pitou", pitou);
+      localStorage.setItem(STO + "_T_pitou", T_pitou);
+      localStorage.setItem(STO + "_R_pitou", R_pitou);
+      localStorage.setItem(STO + "_i_U_pitou", i_U_pitou);
+      localStorage.setItem(STO + "_P_pitou", P_pitou);
+      localStorage.setItem(STO + "_A_pitou", A_pitou);
+      localStorage.setItem(STO + "_pitou_show", pitou_show);
+      // LUCIE
+      localStorage.setItem(STO + "_lucie", lucie);
+      localStorage.setItem(STO + "_T_lucie", T_lucie);
+      localStorage.setItem(STO + "_R_lucie", R_lucie);
+      localStorage.setItem(STO + "_i_U_lucie", i_U_lucie);
+      localStorage.setItem(STO + "_P_lucie", P_lucie);
+      localStorage.setItem(STO + "_A_lucie", A_lucie);
+      localStorage.setItem(STO + "_lucie_show", lucie_show);
+      // NUMERO5
+      localStorage.setItem(STO + "_numero5", numero5);
+      localStorage.setItem(STO + "_T_numero5", T_numero5);
+      localStorage.setItem(STO + "_R_numero5", R_numero5);
+      localStorage.setItem(STO + "_i_U_numero5", i_U_numero5);
+      localStorage.setItem(STO + "_P_numero5", P_numero5);
+      localStorage.setItem(STO + "_A_numero5", A_numero5);
+      localStorage.setItem(STO + "_numero5_show", numero5_show);
+      // NUMERO6
+      localStorage.setItem(STO + "_numero6", numero6);
+      localStorage.setItem(STO + "_T_numero6", T_numero6);
+      localStorage.setItem(STO + "_R_numero6", R_numero6);
+      localStorage.setItem(STO + "_i_U_numero6", i_U_numero6);
+      localStorage.setItem(STO + "_P_numero6", P_numero6);
+      localStorage.setItem(STO + "_A_numero6", A_numero6);
+      localStorage.setItem(STO + "_numero6_show", numero6_show);
+      // NUMERO7
+      localStorage.setItem(STO + "_numero7", numero7);
+      localStorage.setItem(STO + "_T_numero7", T_numero7);
+      localStorage.setItem(STO + "_R_numero7", R_numero7);
+      localStorage.setItem(STO + "_i_U_numero7", i_U_numero7);
+      localStorage.setItem(STO + "_P_numero7", P_numero7);
+      localStorage.setItem(STO + "_A_numero7", A_numero7);
+      localStorage.setItem(STO + "_numero7_show", numero7_show);
+      // NUMERO8
+      localStorage.setItem(STO + "_numero8", numero8);
+      localStorage.setItem(STO + "_T_numero8", T_numero8);
+      localStorage.setItem(STO + "_R_numero8", R_numero8);
+      localStorage.setItem(STO + "_i_U_numero8", i_U_numero8);
+      localStorage.setItem(STO + "_P_numero8", P_numero8);
+      localStorage.setItem(STO + "_A_numero8", A_numero8);
+      localStorage.setItem(STO + "_numero8_show", numero8_show);
+      // NUMERO9
+      localStorage.setItem(STO + "_numero9", numero9);
+      localStorage.setItem(STO + "_T_numero9", T_numero9);
+      localStorage.setItem(STO + "_R_numero9", R_numero9);
+      localStorage.setItem(STO + "_i_U_numero9", i_U_numero9);
+      localStorage.setItem(STO + "_P_numero9", P_numero9);
+      localStorage.setItem(STO + "_A_numero9", A_numero9);
+      localStorage.setItem(STO + "_numero9_show", numero9_show);
+      // NUMERO10
+      localStorage.setItem(STO + "_numero10", numero10);
+      localStorage.setItem(STO + "_T_numero10", T_numero10);
+      localStorage.setItem(STO + "_R_numero10", R_numero10);
+      localStorage.setItem(STO + "_i_U_numero10", i_U_numero10);
+      localStorage.setItem(STO + "_P_numero10", P_numero10);
+      localStorage.setItem(STO + "_A_numero10", A_numero10);
+      localStorage.setItem(STO + "_numero10_show", numero10_show);
+      // NUMERO11
+      localStorage.setItem(STO + "_numero11", numero11);
+      localStorage.setItem(STO + "_T_numero11", T_numero11);
+      localStorage.setItem(STO + "_R_numero11", R_numero11);
+      localStorage.setItem(STO + "_i_U_numero11", i_U_numero11);
+      localStorage.setItem(STO + "_P_numero11", P_numero11);
+      localStorage.setItem(STO + "_A_numero11", A_numero11);
+      localStorage.setItem(STO + "_numero11_show", numero11_show);
+
+    
+
+    }
+    save()
+    
+    function ref(){
+      //tout
+      money_beau = new Intl.NumberFormat().format(money)
+      document.getElementById('money').innerHTML = money_beau;
+      document.getElementById('boost').innerHTML = boost;
+      document.getElementById('noto').innerHTML = noto;
+      // chien Cleb (#1)
+      document.getElementById('cleb').innerHTML = cleb;
+      document.getElementById('T_cleb').innerHTML = T_cleb;
+      document.getElementById('R_cleb').innerHTML = R_cleb;
+      document.getElementById('P_cleb').innerHTML = P_cleb;
+      document.getElementById('i_U_cleb').innerHTML = i_U_cleb;
+      // chien Douggy (#2)
+      document.getElementById('douggy').innerHTML = douggy;
+      document.getElementById('T_douggy').innerHTML = T_douggy;
+      document.getElementById('R_douggy').innerHTML = R_douggy;
+      document.getElementById('P_douggy').innerHTML = P_douggy;
+      document.getElementById('i_U_douggy').innerHTML = i_U_douggy;
+      // chien Pitou (#3)
+      document.getElementById('pitou').innerHTML = pitou;
+      document.getElementById('T_pitou').innerHTML = T_pitou;
+      document.getElementById('R_pitou').innerHTML = R_pitou;
+      document.getElementById('P_pitou').innerHTML = P_pitou;
+      document.getElementById('i_U_pitou').innerHTML = i_U_pitou;
+      // chien Lucie (#4)
+      document.getElementById('lucie').innerHTML = lucie;
+      document.getElementById('T_lucie').innerHTML = T_lucie;
+      document.getElementById('R_lucie').innerHTML = R_lucie;
+      document.getElementById('P_lucie').innerHTML = P_lucie;
+      document.getElementById('i_U_lucie').innerHTML = i_U_lucie;
+     // chien Numero5 (#5)
+      document.getElementById('numero5').innerHTML = numero5;
+      document.getElementById('T_numero5').innerHTML = T_numero5;
+      document.getElementById('R_numero5').innerHTML = R_numero5;
+      document.getElementById('P_numero5').innerHTML = P_numero5;
+      document.getElementById('i_U_numero5').innerHTML = i_U_numero5;
+     // chien Numero6 (#6)
+      document.getElementById('numero6').innerHTML = numero6;
+      document.getElementById('T_numero6').innerHTML = T_numero6;
+      document.getElementById('R_numero6').innerHTML = R_numero6;
+      document.getElementById('P_numero6').innerHTML = P_numero6;
+      document.getElementById('i_U_numero6').innerHTML = i_U_numero6;
+     // chien Numero7 (#7)
+      document.getElementById('numero7').innerHTML = numero7;
+      document.getElementById('T_numero7').innerHTML = T_numero7;
+      document.getElementById('R_numero7').innerHTML = R_numero7;
+      document.getElementById('P_numero7').innerHTML = P_numero7;
+      document.getElementById('i_U_numero7').innerHTML = i_U_numero7;
+     // chien Numero8 (#8)
+      document.getElementById('numero8').innerHTML = numero8;
+      document.getElementById('T_numero8').innerHTML = T_numero8;
+      document.getElementById('R_numero8').innerHTML = R_numero8;
+      document.getElementById('P_numero8').innerHTML = P_numero8;
+      document.getElementById('i_U_numero8').innerHTML = i_U_numero8;
+     // chien Numero9 (#9)
+      document.getElementById('numero9').innerHTML = numero9;
+      document.getElementById('T_numero9').innerHTML = T_numero9;
+      document.getElementById('R_numero9').innerHTML = R_numero9;
+      document.getElementById('P_numero9').innerHTML = P_numero9;
+      document.getElementById('i_U_numero9').innerHTML = i_U_numero9;
+     // chien Numero10 (#10)
+      document.getElementById('numero10').innerHTML = numero10;
+      document.getElementById('T_numero10').innerHTML = T_numero10;
+      document.getElementById('R_numero10').innerHTML = R_numero10;
+      document.getElementById('P_numero10').innerHTML = P_numero10;
+      document.getElementById('i_U_numero10').innerHTML = i_U_numero10;
+     // chien Numero11 (#11)
+      document.getElementById('numero11').innerHTML = numero11;
+      document.getElementById('T_numero11').innerHTML = T_numero11;
+      document.getElementById('R_numero11').innerHTML = R_numero11;
+      document.getElementById('P_numero11').innerHTML = P_numero11;
+      document.getElementById('i_U_numero11').innerHTML = i_U_numero11;
+
+
+      
+      //vendeur Amazon
+      document.getElementById('nb_A').innerHTML = nb_A;
+      document.getElementById('t_A').innerHTML = t_A;
+      //vendeur Random-Dude
+      document.getElementById('nb_R').innerHTML = nb_R;
+      document.getElementById('t_R').innerHTML = t_R;
+    };
+    ref()
+    
+   
+    
+    //amélioration Cleb (#1)
+    function U_cleb(){
+      if (boost >= P_cleb){
+        boost -= P_cleb;
+        cleb += 1;
+        if (cleb == 2){
+          T_cleb = 14;
+          R_cleb = 15;
+          P_cleb = 5;
+          i_U_cleb = "-1 sec, +5$";
+        }
+        if (cleb == 3){
+          T_cleb = 13;
+          R_cleb = 20;
+          P_cleb = 9;
+          i_U_cleb = "-1 sec, +5$";
+        }
+        if (cleb == 4){
+          T_cleb = 12;
+          R_cleb = 25;
+          P_cleb = 20;
+          i_U_cleb = "-1 sec, +10$";
+        }
+        if (cleb == 5){
+          T_cleb = 11;
+          R_cleb = 35;
+          P_cleb = 45;
+          i_U_cleb = "-1 sec, +15$";
+        }
+        if (cleb == 6){
+          T_cleb = 10;
+          R_cleb = 50;
+          P_cleb = 45;
+          i_U_cleb = "-1 sec, +10$";
+        }
+        if (cleb == 7){
+          T_cleb = 9;
+          R_cleb = 60;
+          P_cleb = 45;
+          i_U_cleb = "-1 sec, +10$";
+        }
+        if (cleb == 8){
+          T_cleb = 8;
+          R_cleb = 70;
+          P_cleb = 50;
+          i_U_cleb = "-2 sec, +10$";
+        }
+        if (cleb == 9){
+          T_cleb = 6;
+          R_cleb = 80;
+          P_cleb = 50;
+          i_U_cleb = "-2s, +20$";
+        }
+        if (cleb >= 10){
+          T_cleb = 4;
+          R_cleb = 100;
+          P_cleb = Infinity;
+          i_U_cleb = "Niveau Maximal";
+        }
+        
+
+      }
+      else{
+        a("upgrade")
+      }
+      ref();
+      save();
+    }
+    //vendre cleb
+    function sell_cleb(){
+      cleb_show = 1; //cacher
+      i_cleb.close()
+      hide();
+    }
+    //amélioration Douggy (#2)
+       function U_douggy(){
+      if (boost >= P_douggy){
+        boost -= P_douggy;
+        douggy += 1;
+        if (douggy == 2){
+          T_douggy = 14;
+          R_douggy = 15;
+          P_douggy = 5;
+          i_U_douggy = "-1 sec, +5$";
+        }
+        if (douggy == 3){
+          T_douggy = 13;
+          R_douggy = 20;
+          P_douggy = 9;
+          i_U_douggy = "-1 sec, +5$";
+        }
+        if (douggy == 4){
+          T_douggy = 12;
+          R_douggy = 25;
+          P_douggy = 20;
+          i_U_douggy = "-1 sec, +10$";
+        }
+        if (douggy == 5){
+          T_douggy = 11;
+          R_douggy = 35;
+          P_douggy = 45;
+          i_U_douggy = "-1 sec, +15$";
+        }
+        if (douggy == 6){
+          T_douggy = 10;
+          R_douggy = 50;
+          P_douggy = 45;
+          i_U_douggy = "-1 sec, +10$";
+        }
+        if (douggy == 7){
+          T_douggy = 9;
+          R_douggy = 60;
+          P_douggy = 45;
+          i_U_douggy = "-1 sec, +10$";
+        }
+        if (douggy == 8){
+          T_douggy = 8;
+          R_douggy = 70;
+          P_douggy = 50;
+          i_U_douggy = "-2 sec, +10$";
+        }
+        if (douggy == 9){
+          T_douggy = 6;
+          R_douggy = 80;
+          P_douggy = 50;
+          i_U_douggy = "-2s, +20$";
+        }
+        if (douggy >= 10){
+          T_douggy = 4;
+          R_douggy = 100;
+          P_douggy = Infinity;
+          i_U_douggy = "Niveau Maximal";
+        }
+        
+
+      }
+      else{
+        a("upgrade")
+      }
+      ref();
+      save();
+    }
+    //vendre douggy
+    function sell_douggy(){
+      douggy_show = 1; //cacher
+      i_douggy.close()
+      document.getElementById("acheter_douggy").style.backgroundColor = "lightgray";
+      douggy = 1
+      P_douggy = 2
+      hide();
+    }
+    //amélioration Pitou (#3)
+      function U_pitou(){
+      if (boost >= P_pitou){
+        boost -= P_pitou;
+        pitou += 1;
+        if (pitou == 2){
+          T_pitou = 14;
+          R_pitou = 15;
+          P_pitou = 5;
+          i_U_pitou = "-1 sec, +5$";
+        }
+        if (pitou == 3){
+          T_pitou = 13;
+          R_pitou = 20;
+          P_pitou = 9;
+          i_U_pitou = "-1 sec, +5$";
+        }
+        if (pitou == 4){
+          T_pitou = 12;
+          R_pitou = 25;
+          P_pitou = 20;
+          i_U_pitou = "-1 sec, +10$";
+        }
+        if (pitou == 5){
+          T_pitou = 11;
+          R_pitou = 35;
+          P_pitou = 45;
+          i_U_pitou = "-1 sec, +15$";
+        }
+        if (pitou == 6){
+          T_pitou = 10;
+          R_pitou = 50;
+          P_pitou = 45;
+          i_U_pitou = "-1 sec, +10$";
+        }
+        if (pitou == 7){
+          T_pitou = 9;
+          R_pitou = 60;
+          P_pitou = 45;
+          i_U_pitou = "-1 sec, +10$";
+        }
+        if (pitou == 8){
+          T_pitou = 8;
+          R_pitou = 70;
+          P_pitou = 50;
+          i_U_pitou = "-2 sec, +10$";
+        }
+        if (pitou == 9){
+          T_pitou = 6;
+          R_pitou = 80;
+          P_pitou = 50;
+          i_U_pitou = "-2s, +20$";
+        }
+        if (pitou >= 10){
+          T_pitou = 4;
+          R_pitou = 100;
+          P_pitou = Infinity;
+          i_U_pitou = "Niveau Maximal";
+        }
+        
+
+      }
+      else{
+        a("upgrade")
+      }
+      ref();
+      save();
+    }
+    //vendre pitou
+    function sell_pitou(){
+      pitou_show = 1; //cacher
+      i_pitou.close()
+      document.getElementById("acheter_pitou").style.backgroundColor = "lightgray";
+      pitou = 1
+      P_pitou = 2
+      hide();
+    }
+    //amélioration Lucie (#4)
+      function U_lucie(){
+      if (boost >= P_lucie){
+        boost -= P_lucie;
+        lucie += 1;
+        if (lucie == 2){
+          T_lucie = 14;
+          R_lucie = 15;
+          P_lucie = 5;
+          i_U_lucie = "-1 sec, +5$";
+        }
+        if (lucie == 3){
+          T_lucie = 13;
+          R_lucie = 20;
+          P_lucie = 9;
+          i_U_lucie = "-1 sec, +5$";
+        }
+        if (lucie == 4){
+          T_lucie = 12;
+          R_lucie = 25;
+          P_lucie = 20;
+          i_U_lucie = "-1 sec, +10$";
+        }
+        if (lucie == 5){
+          T_lucie = 11;
+          R_lucie = 35;
+          P_lucie = 45;
+          i_U_lucie = "-1 sec, +15$";
+        }
+        if (lucie == 6){
+          T_lucie = 10;
+          R_lucie = 50;
+          P_lucie = 45;
+          i_U_lucie = "-1 sec, +10$";
+        }
+        if (lucie == 7){
+          T_lucie = 9;
+          R_lucie = 60;
+          P_lucie = 45;
+          i_U_lucie = "-1 sec, +10$";
+        }
+        if (lucie == 8){
+          T_lucie = 8;
+          R_lucie = 70;
+          P_lucie = 50;
+          i_U_lucie = "-2 sec, +10$";
+        }
+        if (lucie == 9){
+          T_lucie = 6;
+          R_lucie = 80;
+          P_lucie = 50;
+          i_U_lucie = "-2s, +20$";
+        }
+        if (lucie >= 10){
+          T_lucie = 4;
+          R_lucie = 100;
+          P_lucie = Infinity;
+          i_U_lucie = "Niveau Maximal";
+        }
+        
+
+      }
+      else{
+        a("upgrade")
+      }
+      ref();
+      save();
+    }
+    
+    //vendre lucie
+    function sell_lucie(){
+      lucie_show = 1; //cacher
+      i_lucie.close()
+      document.getElementById("acheter_lucie").style.backgroundColor = "lightgray";
+      lucie = 1
+      P_lucie = 2
+      hide();
+    }
+    //amélioration Numero5 (#5)
+      function U_numero5(){
+      if (boost >= P_numero5){
+        boost -= P_numero5;
+        numero5 += 1;
+        if (numero5 == 2){
+          T_numero5 = 14;
+          R_numero5 = 15;
+          P_numero5 = 5;
+          i_U_numero5 = "-1 sec, +5$";
+        }
+        if (numero5 == 3){
+          T_numero5 = 13;
+          R_numero5 = 20;
+          P_numero5 = 9;
+          i_U_numero5 = "-1 sec, +5$";
+        }
+        if (numero5 == 4){
+          T_numero5 = 12;
+          R_numero5 = 25;
+          P_numero5 = 20;
+          i_U_numero5 = "-1 sec, +10$";
+        }
+        if (numero5 == 5){
+          T_numero5 = 11;
+          R_numero5 = 35;
+          P_numero5 = 45;
+          i_U_numero5 = "-1 sec, +15$";
+        }
+        if (numero5 == 6){
+          T_numero5 = 10;
+          R_numero5 = 50;
+          P_numero5 = 45;
+          i_U_numero5 = "-1 sec, +10$";
+        }
+        if (numero5 == 7){
+          T_numero5 = 9;
+          R_numero5 = 60;
+          P_numero5 = 45;
+          i_U_numero5 = "-1 sec, +10$";
+        }
+        if (numero5 == 8){
+          T_numero5 = 8;
+          R_numero5 = 70;
+          P_numero5 = 50;
+          i_U_numero5 = "-2 sec, +10$";
+        }
+        if (numero5 == 9){
+          T_numero5 = 6;
+          R_numero5 = 80;
+          P_numero5 = 50;
+          i_U_numero5 = "-2s, +20$";
+        }
+        if (numero5 >= 10){
+          T_numero5 = 4;
+          R_numero5 = 100;
+          P_numero5 = Infinity;
+          i_U_numero5 = "Niveau Maximal";
+        }
+        
+
+      }
+      else{
+        a("upgrade")
+      }
+      ref();
+      save();
+    }
+    //vendre numero5
+    function sell_numero5(){
+      numero5_show = 1; //cacher
+      i_numero5.close()
+      document.getElementById("acheter_numero5").style.backgroundColor = "lightgray";
+      numero5 = 1
+      P_numero5 = 2
+      hide();
+    }
+//amélioration Numero6 (#6)
+    function U_numero6(){
+      if (boost >= P_numero6){
+        boost -= P_numero6;
+        numero6 += 1;
+        if (numero6 == 2){
+          T_numero6 = 14;
+          R_numero6 = 15;
+          P_numero6 = 5;
+          i_U_numero6 = "-1 sec, +5$";
+        }
+        if (numero6 == 3){
+          T_numero6 = 13;
+          R_numero6 = 20;
+          P_numero6 = 9;
+          i_U_numero6 = "-1 sec, +5$";
+        }
+        if (numero6 == 4){
+          T_numero6 = 12;
+          R_numero6 = 25;
+          P_numero6 = 20;
+          i_U_numero6 = "-1 sec, +10$";
+        }
+        if (numero6 == 5){
+          T_numero6 = 11;
+          R_numero6 = 35;
+          P_numero6 = 45;
+          i_U_numero6 = "-1 sec, +15$";
+        }
+        if (numero6 == 6){
+          T_numero6 = 10;
+          R_numero6 = 50;
+          P_numero6 = 45;
+          i_U_numero6 = "-1 sec, +10$";
+        }
+        if (numero6 == 7){
+          T_numero6 = 9;
+          R_numero6 = 60;
+          P_numero6 = 45;
+          i_U_numero6 = "-1 sec, +10$";
+        }
+        if (numero6 == 8){
+          T_numero6 = 8;
+          R_numero6 = 70;
+          P_numero6 = 50;
+          i_U_numero6 = "-2 sec, +10$";
+        }
+        if (numero6 == 9){
+          T_numero6 = 6;
+          R_numero6 = 80;
+          P_numero6 = 50;
+          i_U_numero6 = "-2s, +20$";
+        }
+        if (numero6 >= 10){
+          T_numero6 = 4;
+          R_numero6 = 100;
+          P_numero6 = Infinity;
+          i_U_numero6 = "Niveau Maximal";
+        }
+        
+
+      }
+      else{
+        a("upgrade")
+      }
+      ref();
+      save();
+    }
+    //vendre numero6
+    function sell_numero6(){
+      numero6_show = 1; //cacher
+      i_numero6.close()
+      document.getElementById("acheter_numero6").style.backgroundColor = "lightgray";
+      numero6 = 1
+      P_numero6 = 2
+      hide();
+    }
+//amélioration Numero7 (#7)
+      function U_numero7(){
+      if (boost >= P_numero7){
+        boost -= P_numero7;
+        numero7 += 1;
+        if (numero7 == 2){
+          T_numero7 = 14;
+          R_numero7 = 15;
+          P_numero7 = 5;
+          i_U_numero7 = "-1 sec, +5$";
+        }
+        if (numero7 == 3){
+          T_numero7 = 13;
+          R_numero7 = 20;
+          P_numero7 = 9;
+          i_U_numero7 = "-1 sec, +5$";
+        }
+        if (numero7 == 4){
+          T_numero7 = 12;
+          R_numero7 = 25;
+          P_numero7 = 20;
+          i_U_numero7 = "-1 sec, +10$";
+        }
+        if (numero7 == 5){
+          T_numero7 = 11;
+          R_numero7 = 35;
+          P_numero7 = 45;
+          i_U_numero7 = "-1 sec, +15$";
+        }
+        if (numero7 == 6){
+          T_numero7 = 10;
+          R_numero7 = 50;
+          P_numero7 = 45;
+          i_U_numero7 = "-1 sec, +10$";
+        }
+        if (numero7 == 7){
+          T_numero7 = 9;
+          R_numero7 = 60;
+          P_numero7 = 45;
+          i_U_numero7 = "-1 sec, +10$";
+        }
+        if (numero7 == 8){
+          T_numero7 = 8;
+          R_numero7 = 70;
+          P_numero7 = 50;
+          i_U_numero7 = "-2 sec, +10$";
+        }
+        if (numero7 == 9){
+          T_numero7 = 6;
+          R_numero7 = 80;
+          P_numero7 = 50;
+          i_U_numero7 = "-2s, +20$";
+        }
+        if (numero7 >= 10){
+          T_numero7 = 4;
+          R_numero7 = 100;
+          P_numero7 = Infinity;
+          i_U_numero7 = "Niveau Maximal";
+        }
+        
+
+      }
+      else{
+        a("upgrade")
+      }
+      ref();
+      save();
+    }
+    //vendre numero7
+    function sell_numero7(){
+      numero7_show = 1; //cacher
+      i_numero7.close()
+      document.getElementById("acheter_numero7").style.backgroundColor = "lightgray";
+      numero7 = 1
+      P_numero7 = 2
+      hide();
+    }
+//amélioration Numero8 (#8)
+        function U_numero8(){
+      if (boost >= P_numero8){
+        boost -= P_numero8;
+        numero8 += 1;
+        if (numero8 == 2){
+          T_numero8 = 14;
+          R_numero8 = 15;
+          P_numero8 = 5;
+          i_U_numero8 = "-1 sec, +5$";
+        }
+        if (numero8 == 3){
+          T_numero8 = 13;
+          R_numero8 = 20;
+          P_numero8 = 9;
+          i_U_numero8 = "-1 sec, +5$";
+        }
+        if (numero8 == 4){
+          T_numero8 = 12;
+          R_numero8 = 25;
+          P_numero8 = 20;
+          i_U_numero8 = "-1 sec, +10$";
+        }
+        if (numero8 == 5){
+          T_numero8 = 11;
+          R_numero8 = 35;
+          P_numero8 = 45;
+          i_U_numero8 = "-1 sec, +15$";
+        }
+        if (numero8 == 6){
+          T_numero8 = 10;
+          R_numero8 = 50;
+          P_numero8 = 45;
+          i_U_numero8 = "-1 sec, +10$";
+        }
+        if (numero8 == 7){
+          T_numero8 = 9;
+          R_numero8 = 60;
+          P_numero8 = 45;
+          i_U_numero8 = "-1 sec, +10$";
+        }
+        if (numero8 == 8){
+          T_numero8 = 8;
+          R_numero8 = 70;
+          P_numero8 = 50;
+          i_U_numero8 = "-2 sec, +10$";
+        }
+        if (numero8 == 9){
+          T_numero8 = 6;
+          R_numero8 = 80;
+          P_numero8 = 50;
+          i_U_numero8 = "-2s, +20$";
+        }
+        if (numero8 >= 10){
+          T_numero8 = 4;
+          R_numero8 = 100;
+          P_numero8 = Infinity;
+          i_U_numero8 = "Niveau Maximal";
+        }
+        
+
+      }
+      else{
+        a("upgrade")
+      }
+      ref();
+      save();
+    }
+    //vendre numero8
+    function sell_numero8(){
+      numero8_show = 1; //cacher
+      i_numero8.close()
+      document.getElementById("acheter_numero8").style.backgroundColor = "lightgray";
+      numero8 = 1
+      P_numero8 = 2
+      hide();
+    }
+//amélioration Numero9 (#9)
+      function U_numero9(){
+      if (boost >= P_numero9){
+        boost -= P_numero9;
+        numero9 += 1;
+        if (numero9 == 2){
+          T_numero9 = 14;
+          R_numero9 = 15;
+          P_numero9 = 5;
+          i_U_numero9 = "-1 sec, +5$";
+        }
+        if (numero9 == 3){
+          T_numero9 = 13;
+          R_numero9 = 20;
+          P_numero9 = 9;
+          i_U_numero9 = "-1 sec, +5$";
+        }
+        if (numero9 == 4){
+          T_numero9 = 12;
+          R_numero9 = 25;
+          P_numero9 = 20;
+          i_U_numero9 = "-1 sec, +10$";
+        }
+        if (numero9 == 5){
+          T_numero9 = 11;
+          R_numero9 = 35;
+          P_numero9 = 45;
+          i_U_numero9 = "-1 sec, +15$";
+        }
+        if (numero9 == 6){
+          T_numero9 = 10;
+          R_numero9 = 50;
+          P_numero9 = 45;
+          i_U_numero9 = "-1 sec, +10$";
+        }
+        if (numero9 == 7){
+          T_numero9 = 9;
+          R_numero9 = 60;
+          P_numero9 = 45;
+          i_U_numero9 = "-1 sec, +10$";
+        }
+        if (numero9 == 8){
+          T_numero9 = 8;
+          R_numero9 = 70;
+          P_numero9 = 50;
+          i_U_numero9 = "-2 sec, +10$";
+        }
+        if (numero9 == 9){
+          T_numero9 = 6;
+          R_numero9 = 80;
+          P_numero9 = 50;
+          i_U_numero9 = "-2s, +20$";
+        }
+        if (numero9 >= 10){
+          T_numero9 = 4;
+          R_numero9 = 100;
+          P_numero9 = Infinity;
+          i_U_numero9 = "Niveau Maximal";
+        }
+        
+
+      }
+      else{
+        a("upgrade")
+      }
+      ref();
+      save();
+    }
+    //vendre numero9
+    function sell_numero9(){
+      numero9_show = 1; //cacher
+      i_numero9.close()
+      document.getElementById("acheter_numero9").style.backgroundColor = "lightgray";
+      numero9 = 1
+      P_numero9 = 2
+      hide();
+    }
+//amélioration Numero10 (#10)
+      function U_numero10(){
+      if (boost >= P_numero10){
+        boost -= P_numero10;
+        numero10 += 1;
+        if (numero10 == 2){
+          T_numero10 = 14;
+          R_numero10 = 15;
+          P_numero10 = 5;
+          i_U_numero10 = "-1 sec, +5$";
+        }
+        if (numero10 == 3){
+          T_numero10 = 13;
+          R_numero10 = 20;
+          P_numero10 = 9;
+          i_U_numero10 = "-1 sec, +5$";
+        }
+        if (numero10 == 4){
+          T_numero10 = 12;
+          R_numero10 = 25;
+          P_numero10 = 20;
+          i_U_numero10 = "-1 sec, +10$";
+        }
+        if (numero10 == 5){
+          T_numero10 = 11;
+          R_numero10 = 35;
+          P_numero10 = 45;
+          i_U_numero10 = "-1 sec, +15$";
+        }
+        if (numero10 == 6){
+          T_numero10 = 10;
+          R_numero10 = 50;
+          P_numero10 = 45;
+          i_U_numero10 = "-1 sec, +10$";
+        }
+        if (numero10 == 7){
+          T_numero10 = 9;
+          R_numero10 = 60;
+          P_numero10 = 45;
+          i_U_numero10 = "-1 sec, +10$";
+        }
+        if (numero10 == 8){
+          T_numero10 = 8;
+          R_numero10 = 70;
+          P_numero10 = 50;
+          i_U_numero10 = "-2 sec, +10$";
+        }
+        if (numero10 == 9){
+          T_numero10 = 6;
+          R_numero10 = 80;
+          P_numero10 = 50;
+          i_U_numero10 = "-2s, +20$";
+        }
+        if (numero10 >= 10){
+          T_numero10 = 4;
+          R_numero10 = 100;
+          P_numero10 = Infinity;
+          i_U_numero10 = "Niveau Maximal";
+        }
+        
+
+      }
+      else{
+        a("upgrade")
+      }
+      ref();
+      save();
+    }
+    //vendre numero10
+    function sell_numero10(){
+      numero10_show = 1; //cacher
+      i_numero10.close()
+      document.getElementById("acheter_numero10").style.backgroundColor = "lightgray";
+      numero10 = 1
+      P_numero10 = 2
+      hide();
+    }
+//amélioration Numero11 (#11)
+       function U_numero11(){
+      if (boost >= P_numero11){
+        boost -= P_numero11;
+        numero11 += 1;
+        if (numero11 == 2){
+          T_numero11 = 14;
+          R_numero11 = 15;
+          P_numero11 = 5;
+          i_U_numero11 = "-1 sec, +5$";
+        }
+        if (numero11 == 3){
+          T_numero11 = 13;
+          R_numero11 = 20;
+          P_numero11 = 9;
+          i_U_numero11 = "-1 sec, +5$";
+        }
+        if (numero11 == 4){
+          T_numero11 = 12;
+          R_numero11 = 25;
+          P_numero11 = 20;
+          i_U_numero11 = "-1 sec, +10$";
+        }
+        if (numero11 == 5){
+          T_numero11 = 11;
+          R_numero11 = 35;
+          P_numero11 = 45;
+          i_U_numero11 = "-1 sec, +15$";
+        }
+        if (numero11 == 6){
+          T_numero11 = 10;
+          R_numero11 = 50;
+          P_numero11 = 45;
+          i_U_numero11 = "-1 sec, +10$";
+        }
+        if (numero11 == 7){
+          T_numero11 = 9;
+          R_numero11 = 60;
+          P_numero11 = 45;
+          i_U_numero11 = "-1 sec, +10$";
+        }
+        if (numero11 == 8){
+          T_numero11 = 8;
+          R_numero11 = 70;
+          P_numero11 = 50;
+          i_U_numero11 = "-2 sec, +10$";
+        }
+        if (numero11 == 9){
+          T_numero11 = 6;
+          R_numero11 = 80;
+          P_numero11 = 50;
+          i_U_numero11 = "-2s, +20$";
+        }
+        if (numero11 >= 10){
+          T_numero11 = 4;
+          R_numero11 = 100;
+          P_numero11 = Infinity;
+          i_U_numero11 = "Niveau Maximal";
+        }
+        
+
+      }
+      else{
+        a("upgrade")
+      }
+      ref();
+      save();
+    }
+    //vendre numero11
+    function sell_numero11(){
+      numero11_show = 1; //cacher
+      i_numero11.close()
+      document.getElementById("acheter_numero11").style.backgroundColor = "lightgray";
+      numero11 = 1
+      P_numero11 = 2
+      hide();
+    }
+
+    //centre de tout. se lit 2 fois par secondes
+    function base(){
+      if (cleb_show == 0){
+        A_cleb += 1
+        if (A_cleb >= T_cleb * 2){
+          A_cleb -= T_cleb * 2 * multiply_temps_chien;
+          money += R_cleb * multiply_chien;
+        }
+      }
+      if (douggy_show == 0){
+        A_douggy += 1
+        if (A_douggy >= T_douggy * 2){
+          A_douggy -= T_douggy * 2 * multiply_temps_chien;
+          money += R_douggy * multiply_chien;
+        }
+      }
+      if (pitou_show == 0){
+        A_pitou += 1
+        if (A_pitou >= T_pitou * 2){
+          A_pitou -= T_pitou * 2 * multiply_temps_chien;
+          money += R_pitou * multiply_chien;
+        }
+      }
+      if (lucie_show == 0){
+        A_lucie += 1
+        if (A_lucie >= T_lucie * 2){
+          A_lucie -= T_lucie * 2 * multiply_temps_chien;
+          money += R_lucie * multiply_chien;
+        }
+      }
+      if (numero5_show == 0){
+        A_numero5 += 1
+        if (A_numero5 >= T_numero5 * 2){
+          A_numero5 -= T_numero5 * 2 * multiply_temps_chien;
+          money += R_numero5 * multiply_chien;
+        }
+      }
+      if (numero6_show == 0){
+              A_numero6 += 1
+              if (A_numero6 >= T_numero6 * 2){
+                A_numero6 -= T_numero6 * 2 * multiply_temps_chien;
+                money += R_numero6 * multiply_chien;
+              }
+            }
+      if (numero7_show == 0){
+              A_numero7 += 1
+              if (A_numero7 >= T_numero7 * 2){
+                A_numero7 -= T_numero7 * 2 * multiply_temps_chien;
+                money += R_numero7 * multiply_chien;
+              }
+            }
+      if (numero8_show == 0){
+              A_numero8 += 1
+              if (A_numero8 >= T_numero8 * 2){
+                A_numero8 -= T_numero8 * 2 * multiply_temps_chien;
+                money += R_numero8 * multiply_chien;
+              }
+            }
+      if (numero9_show == 0){
+              A_numero9 += 1
+              if (A_numero9 >= T_numero9 * 2){
+                A_numero9 -= T_numero9 * 2 * multiply_temps_chien;
+                money += R_numero9 * multiply_chien;
+              }
+            }
+      if (numero10_show == 0){
+              A_numero10 += 1
+              if (A_numero10 >= T_numero10 * 2){
+                A_numero10 -= T_numero10 * 2 * multiply_temps_chien;
+                money += R_numero10 * multiply_chien;
+              }
+            }
+      if (numero11_show == 0){
+              A_numero11 += 1
+              if (A_numero11 >= T_numero11 * 2){
+                A_numero11 -= T_numero11 * 2 * multiply_temps_chien;
+                money += R_numero11 * multiply_chien;
+              }
+            }
+
+      ref();
+    };
+
+    setInterval(base,500)
+    setInterval(save,10000)
+
+
+    //shop
+    function shop_open(){
+      shop.showModal();
+      //sélection de valeurs pour Amazon
+      //choisi un range
+      range_A = Math.floor (Math.random () * ( 5 - 2 + 1)) + 2;
+      // choisi le nombre de seringues vendues
+      nb_A = Math.floor (Math.random () * ( 22 - 15 + 1)) + 15;
+      // choisis un prix en fonction du range
+      if (range_A == 2){
+        prix_A = Math.floor (Math.random () * ( 37 - 33 + 1)) + 33;
+        // bonus de coût
+        prix_A += 2;
+        t_A = nb_A * prix_A;
+        t_A += 1
+      }
+      if (range_A == 3){
+        prix_A = Math.floor (Math.random () * ( 39 - 37 + 1)) + 37;
+        // bonus de coût
+        prix_A += 3;
+        t_A = nb_A * prix_A;
+      }
+      if (range_A == 4){
+        prix_A = Math.floor (Math.random () * ( 44 - 39 + 1)) + 39;
+        // bonus de coût
+        prix_A += 3;
+        t_A = nb_A * prix_A;
+      }
+      if (range_A == 5){
+        prix_A = Math.floor (Math.random () * ( 52 - 44 + 1)) + 44;
+        // bonus de coût
+        prix_A += 3;
+        t_A = nb_A * prix_A;
+      }
+      
+      //sélection de valeurs pour Random-Dude
+      //choisi un range
+      range_R = Math.floor (Math.random () * ( 5 - 1 + 1)) + 1;
+      // choisi le nombre de seringues vendues
+      nb_R = Math.floor (Math.random () * ( 7 - 1 + 1)) + 1;
+      // choisis un prix en fonction du range
+      if (range_R == 1){
+        prix_R = Math.floor (Math.random () * ( 33 - 28 + 1)) + 28;
+        //bonus de coût
+        prix_R += 4;
+        t_R = nb_R * prix_R;
+      }
+      if (range_R == 2){
+        prix_R = Math.floor (Math.random () * ( 37 - 33 + 1)) + 33;
+        //bonus de coût
+        prix_R += 4;
+        t_R = nb_R * prix_R;
+      }
+      if (range_R == 3){
+        prix_R = Math.floor (Math.random () * ( 39 - 37 + 1)) + 37;
+        //bonus de coût
+        prix_R += 4;
+        t_R = nb_R * prix_R;
+      }
+      if (range_R == 4){
+        prix_R = Math.floor (Math.random () * ( 44 - 39 + 1)) + 39;
+        //bonus de coût
+        prix_R += 4;
+        t_R = nb_R * prix_R;
+      }
+      if (range_R == 5){
+        prix_R = Math.floor (Math.random () * ( 52 - 44 + 1)) + 44;
+        //bonus de coût
+        prix_R += 4;
+        t_R = nb_R * prix_R;
+      }
+      ref();
+    }
+    // acheter aux vendeurs
+    function A_buy(){
+      if (money >= t_A){
+        money -= t_A;
+        boost += nb_A;
+        shop.close();
+        shop_open();
+      }
+      else{
+        a("shop");
+      }
+    };
+    function R_buy(){
+      if (money >= t_R){
+        money -= t_R;
+        boost += nb_R;
+        shop.close();
+        shop_open();
+      }
+      else{
+        a("shop")
+      }
+    };
+    
+    
+    //animalerie
+    function animalerie_open(){
+      animalerie.showModal()
+      hide()
+    }
+    function buy_douggy(){
+      if (money >= 20){
+        if (douggy_show == 1){
+          money -= 20;
+          douggy_show = 0;
+          document.getElementById("acheter_douggy").style.backgroundColor = "gray";
+        }
+        else{
+          a("deja_achete")
+        }
+      }
+      else{
+        a("shop")
+      }
+      hide()
+      save()
+    }
+    function buy_pitou(){
+      if (money >= 800){
+        if (pitou_show == 1){
+          money -= 800;
+          pitou_show = 0;
+          document.getElementById("acheter_pitou").style.backgroundColor = "gray";
+        }
+        else{
+          a("deja_achete")
+        }
+      }
+      else{
+        a("shop")
+      }
+      hide()
+      save()
+    }
+    function buy_lucie(){
+      if (money >= 1500){
+        if (lucie_show == 1){
+          money -= 1500;
+          lucie_show = 0;
+          document.getElementById("acheter_lucie").style.backgroundColor = "gray";
+        }
+        else{
+          a("deja_achete")
+        }
+      }
+      else{
+        a("shop")
+      }
+      hide()
+      save()
+    }
+    function buy_numero5(){
+      if (money >= 2100){
+        if (numero5_show == 1){
+          money -= 2100;
+          numero5_show = 0;
+          document.getElementById("acheter_numero5").style.backgroundColor = "gray";
+        }
+        else{
+          a("deja_achete")
+        }
+      }
+      else{
+        a("shop")
+      }
+      hide()
+      save()
+    }
+    function buy_numero6(){
+      if (money >= 2500){
+        if (numero6_show == 1){
+          money -= 2500;
+          numero6_show = 0;
+          document.getElementById("acheter_numero6").style.backgroundColor = "gray";
+        }
+        else{
+          a("deja_achete")
+        }
+      }
+      else{
+        a("shop")
+      }
+      hide()
+      save()
+    }
+    function buy_numero7(){
+      if (money >= 2800){
+        if (numero7_show == 1){
+          money -= 2800;
+          numero7_show = 0;
+          document.getElementById("acheter_numero7").style.backgroundColor = "gray";
+        }
+        else{
+          a("deja_achete")
+        }
+      }
+      else{
+        a("shop")
+      }
+      hide()
+      save()
+    }
+    function buy_numero8(){
+      if (money >= 3000){
+        if (numero8_show == 1){
+          money -= 3000;
+          numero8_show = 0;
+          document.getElementById("acheter_numero8").style.backgroundColor = "gray";
+        }
+        else{
+          a("deja_achete")
+        }
+      }
+      else{
+        a("shop")
+      }
+      hide()
+      save()
+    }
+    function buy_numero9(){
+      if (money >= 3000){
+        if (numero9_show == 1){
+          money -= 3000;
+          numero9_show = 0;
+          document.getElementById("acheter_numero9").style.backgroundColor = "gray";
+        }
+        else{
+          a("deja_achete")
+        }
+      }
+      else{
+        a("shop")
+      }
+      hide()
+      save()
+    }
+    function buy_numero10(){
+      if (money >= 3000){
+        if (numero10_show == 1){
+          money -= 3000;
+          numero10_show = 0;
+          document.getElementById("acheter_numero10").style.backgroundColor = "gray";
+        }
+        else{
+          a("deja_achete")
+        }
+      }
+      else{
+        a("shop")
+      }
+      hide()
+      save()
+    }
+    function buy_numero11(){
+      if (money >= 3000){
+        if (numero11_show == 1){
+          money -= 3000;
+          numero11_show = 0;
+          document.getElementById("acheter_numero11").style.backgroundColor = "gray";
+        }
+        else{
+          a("deja_achete")
+        }
+      }
+      else{
+        a("shop")
+      }
+      hide()
+      save()
+    }      
+      
+    // alertes
+    function a(type){
+      if (type == "shop"){
+        alert("Il vous faut plus d'argent. Améliorer vos chiens ou achetez-en de nouveaux.")
+      }
+      if (type == "upgrade"){
+        alert("Il vous faut plus de boost. Rendez vous dans la shop pour vous en procurer")
+      }
+      if (type == "deja_achete"){
+        alert("Vous avez déjà acheté ce chien")
+      }
+      
+    }
+  </script>
+  <style>
+      .var_uni {
+        position: fixed;  /* changer absolute → fixed */
+        bottom: 10px;
+      }
+  </style>
+  </body>
+  
+  
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

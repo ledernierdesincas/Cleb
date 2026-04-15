@@ -593,14 +593,14 @@
         })
           .then(r => r.json())
           .then(data => {
-            const cliquevoulu = data.record.clics + 1;
+            const quesstuveux = data.record.tente_chance + 1;
             fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
               method: "PUT",
               headers: {
                 'Content-Type': "application/json",
                 'X-Master-Key': API_KEY
               },
-              body: JSON.stringify({clics: cliquevoulu})
+              body: JSON.stringify({tente_chance: quesstuveux})
             })
           })
 

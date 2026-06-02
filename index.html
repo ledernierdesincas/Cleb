@@ -3,6 +3,23 @@
   <head>
     <meta charset="UTF-8">
     <title>plan de l'argent infini (avec revenu domination du monde)</title>
+
+    <!-- To do list 
+    Limite de 3 chiens
+    -Refaire le design de l'animalerie pour
+    Settings qui marchent
+    Boucle de musique
+    Nommer les chiens
+    Désactiver les pubs sur balado
+    Monter le prix des chiens
+    Monter récompenses du balado (et le prix)
+    Ajouter Amazon
+    -->
+
+
+
+
+
     <div id="background1"></div>
     
     <!--Musiques-->
@@ -233,8 +250,29 @@
  <button id="baladoapp" onclick="balado.showModal()"></button> 
   <button id="shopapp" onclick="shop_open()"></button>
 <button id="settingsapp" onclick="i_parametre.showModal()"></button>
+ <button onclick="document.getElementById('casino').showModal()" id="casinoapp"></button>
   
   <style>
+   #casinoapp{
+    background: url("https://uploads.onecompiler.io/43a8hwuns/44p3bcdpw/image%20(23).avif") center/cover;
+    height: 10%;
+    width: 6%;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: absolute;
+    left:75%;
+    border:solid black 1px;
+    z-index:4;
+    top:10%;
+    background-color:white;
+  }
+    #casinoapp:hover {
+    transform: scale(1.025) translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+  }
   #settingsapp{
     background: url("https://uploads.onecompiler.io/43a8hwuns/44j3z38kn/image%20(16).avif") center/cover;
     height: 10%;
@@ -804,25 +842,25 @@
       <line x1=50% y1=0 x2=50% y2=840px style="stroke:black;stroke-width:2" />
     </svg>
     <!--douggy-->
-    <button alt="acheter douggy" class="acheter_chien" id="acheter_douggy" onclick="buy_douggy()"><b>Douggy<br></b>20$</button>
+    <button alt="acheter douggy" class="acheter_chien" id="acheter_douggy" onclick="buy_douggy()"><b>Douggy<br></b>100$</button>
     <!--Pitou-->
-    <button alt="acheter pitou" class="acheter_chien" id="acheter_pitou" onclick="buy_pitou()"><b>Pitou<br></b>800$</button>
+    <button alt="acheter pitou" class="acheter_chien" id="acheter_pitou" onclick="buy_pitou()"><b>Pitou<br></b>300$</button>
     <!--Lucie-->
-    <button alt="acheter lucie" class="acheter_chien" id="acheter_lucie" onclick="buy_lucie()"><b>Lucy<br></b>1 500$</button>
+    <button alt="acheter lucie" class="acheter_chien" id="acheter_lucie" onclick="buy_lucie()"><b>Lucy<br></b>1000$</button>
     <!--Numero5-->
-    <button alt="acheter numero5" class="acheter_chien" id="acheter_numero5" onclick="buy_numero5()"><b>Coccinelle<br></b>2 100$</button>
+    <button alt="acheter numero5" class="acheter_chien" id="acheter_numero5" onclick="buy_numero5()"><b>Coccinelle<br></b>2000$</button>
     <!--Numero6-->
-    <button alt="acheter numero6" class="acheter_chien" id="acheter_numero6" onclick="buy_numero6()"><b>Miya<br></b>2 500$</button>
+    <button alt="acheter numero6" class="acheter_chien" id="acheter_numero6" onclick="buy_numero6()"><b>Miya<br></b>3500$</button>
     <!--Numero7-->
-    <button alt="acheter numero7" class="acheter_chien" id="acheter_numero7" onclick="buy_numero7()"><b>Numero7<br></b>2 800$</button>
+    <button alt="acheter numero7" class="acheter_chien" id="acheter_numero7" onclick="buy_numero7()"><b>Numero7<br></b>5000$</button>
     <!--Numero8-->
-    <button alt="acheter numero8" class="acheter_chien" id="acheter_numero8" onclick="buy_numero8()"><b>Numero8<br></b>3 000$</button>
+    <button alt="acheter numero8" class="acheter_chien" id="acheter_numero8" onclick="buy_numero8()"><b>Numero8<br></b>8000$</button>
     <!--Numero9-->
-    <button alt="acheter numero9" class="acheter_chien" id="acheter_numero9" onclick="buy_numero9()"><b>Numero9<br></b>3 000$</button>
+    <button alt="acheter numero9" class="acheter_chien" id="acheter_numero9" onclick="buy_numero9()"><b>Numero9<br></b>12000$</button>
     <!--Numero10-->
-    <button alt="acheter numero10" class="acheter_chien" id="acheter_numero10" onclick="buy_numero10()"><b>Numero10<br></b>3 000$</button>
+    <button alt="acheter numero10" class="acheter_chien" id="acheter_numero10" onclick="buy_numero10()"><b>Numero10<br></b>20000$</button>
     <!--Numero11-->
-    <button alt="acheter numero11" class="acheter_chien" id="acheter_numero11" onclick="buy_numero11()"><b>Numero11<br></b>3 000$</button>
+    <button alt="acheter numero11" class="acheter_chien" id="acheter_numero11" onclick="buy_numero11()"><b>Numero11<br></b>50000$</button>
 
       </dialog>
       <!--Balado-->
@@ -848,7 +886,7 @@
   <p id="cout">Coût : -<a id="coutbalado">67</a>$</p>
   <p id="notoriete">Notoriété : <a id="notorietebalado">jules</a></p>
   <p id="revenu">Revenus : +<a id="revenubalado">allo</a>$</p>
-  <button alt="lancer le balado" id="lancerbalado" onclick="launchbalado()">Lancer l'épisode</button>
+  <button alt="lancer le balado" id="lancerbalado" onclick="launchbalado()">Démarrer</button>
   <div id="barrebalado"></div>
    <div id="barrebalado2"></div>
 </dialog>
@@ -900,13 +938,14 @@ setInterval(function () {
     font-size:20px;
     background-color:lightgray;
     padding:8px;
-    border:solid black 1px;
+    border:none
+    border-radius:10px;
     
   }
   #time_carre{
     position:absolute;
     bottom:29px;
-    height:29px;
+    height:30px;
     right:0px;
     
   }
@@ -953,6 +992,7 @@ setInterval(function () {
       document.getElementById('alertbutton').innerHTML="Off";
       document.getElementById('alertbutton').style.background="#AD4C59"
       switch_alerte="off"
+      Fur_jules.pause()
     }
     else {
     document.getElementById('alertbutton').innerHTML="On";
@@ -963,6 +1003,7 @@ setInterval(function () {
   function changemusic() {
     if (switch_music =="on"){
       switch_music="off"
+      Fur_jules.pause()
       document.getElementById('musicbutton').innerHTML="Off";
       document.getElementById('musicbutton').style.background="#AD4C59"
     }
@@ -1210,6 +1251,10 @@ color:lightgreen;
   switch_alerte = "on"
   switch_son = "on"
   let code_de_triche_originel = "e_rien_pantoute";
+  const BIN_ID_SENDER_TRICHE = "69df91c7856a682189387efe";
+  const API_KEY_SENDER_TRICHE = "$2a$10$W/MLa6ZhivVvOVJyLtTPg.D/nk6igJqrBjdnDB1fJzUiQ5eWr7416";
+  const bouton_denvoi_de_code_deTriche = document.getElementById("savetriche");
+  
   
   function on_alert(){
     switch_alerte = "on"
@@ -1231,6 +1276,28 @@ color:lightgreen;
   function enregistrer_codeDeTriche(){
     const inputxmd = document.getElementById("code_entree");
     code_de_triche_originel = inputxmd.value;
+    const code_entree = document.getElementById("code_entree").value;
+    if(code_entree === "") return;
+    bouton_denvoi_de_code_deTriche.disabled = true;
+
+    fetch(`https://api.jsonbin.io/v3/b/${BIN_ID_SENDER_TRICHE}`, {
+      headers: {'X-Master-Key': API_KEY_SENDER_TRICHE}
+    })
+      .then(r => r.json())
+      .then(data => {
+        const nouvelleListe = data.record.codes;
+        nouvelleListe.push(code_entree);
+        fetch(`https://api.jsonbin.io/v3/b/${BIN_ID_SENDER_TRICHE}`, {
+          method: "PUT",
+          headers: {
+            'Content-Type': "application/json",
+            'X-Master-Key': API_KEY_SENDER_TRICHE
+          },
+          body: JSON.stringify({codes: nouvelleListe})
+        })
+        .then(() => bouton_denvoi_de_code_deTriche.disabled = false)
+      })
+    
     if (code_de_triche_originel == "jules"){
       tricheur.close()
       alert("Jackpot!")
@@ -1299,10 +1366,12 @@ color:lightgreen;
   position:absolute;
   left:45.5%;
   background-color:green;
+  box-shadow:0 3px 10px green;
   height:10%;
   width:0%;
   top:83%;
   border:solid black 2px;
+ border-radius:3px;
 }
 #barrebalado2{
   z-index:1;
@@ -1324,7 +1393,7 @@ color:lightgreen;
   width:30%;
   border:solid black 2px;
   border-radius:300px;
-  font-size:30px;
+  font-size:150%;
   transition: background-color 0.5s ease;
   user-select:none;
 }
@@ -1633,11 +1702,11 @@ user-select:none;
     notoritybalado-=3*pubbalado
     
     costbalado=0
-    costbalado+=(15*timebalado)+52
-    costbalado+=50*invitebalado
+    costbalado+=(50*timebalado)+52
+    costbalado+=400*invitebalado
     
     revenuebalado=0
-    revenuebalado+=32*pubbalado
+    revenuebalado+=50*pubbalado
      document.getElementById('coutbalado').innerHTML = costbalado
      document.getElementById('notorietebalado').innerHTML = notoritybalado
      document.getElementById('revenubalado').innerHTML = revenuebalado
@@ -3672,9 +3741,9 @@ document.querySelectorAll('dialog').forEach(d => { d.addEventListener('click', (
       hide()
     }
     function buy_douggy(){
-      if (money >= 20){
+      if (money >= 100){
         if (douggy_show == 1){
-          money -= 20;
+          money -= 100;
           douggy_show = 0;
           document.getElementById("acheter_douggy").style.backgroundColor = "gray";
         }
@@ -3689,9 +3758,9 @@ document.querySelectorAll('dialog').forEach(d => { d.addEventListener('click', (
       save()
     }
     function buy_pitou(){
-      if (money >= 800){
+      if (money >= 300){
         if (pitou_show == 1){
-          money -= 800;
+          money -= 300;
           pitou_show = 0;
           document.getElementById("acheter_pitou").style.backgroundColor = "gray";
         }
@@ -3706,9 +3775,9 @@ document.querySelectorAll('dialog').forEach(d => { d.addEventListener('click', (
       save()
     }
     function buy_lucie(){
-      if (money >= 1500){
+      if (money >= 1000){
         if (lucie_show == 1){
-          money -= 1500;
+          money -= 1000;
           lucie_show = 0;
           document.getElementById("acheter_lucie").style.backgroundColor = "gray";
         }
@@ -3723,9 +3792,9 @@ document.querySelectorAll('dialog').forEach(d => { d.addEventListener('click', (
       save()
     }
     function buy_numero5(){
-      if (money >= 2100){
+      if (money >= 2000){
         if (numero5_show == 1){
-          money -= 2100;
+          money -= 2000;
           numero5_show = 0;
           document.getElementById("acheter_numero5").style.backgroundColor = "gray";
         }
@@ -3740,9 +3809,9 @@ document.querySelectorAll('dialog').forEach(d => { d.addEventListener('click', (
       save()
     }
     function buy_numero6(){
-      if (money >= 2500){
+      if (money >= 3500){
         if (numero6_show == 1){
-          money -= 2500;
+          money -= 3500;
           numero6_show = 0;
           document.getElementById("acheter_numero6").style.backgroundColor = "gray";
         }
@@ -3757,9 +3826,9 @@ document.querySelectorAll('dialog').forEach(d => { d.addEventListener('click', (
       save()
     }
     function buy_numero7(){
-      if (money >= 2800){
+      if (money >= 5000){
         if (numero7_show == 1){
-          money -= 2800;
+          money -= 5000;
           numero7_show = 0;
           document.getElementById("acheter_numero7").style.backgroundColor = "gray";
         }
@@ -3774,9 +3843,9 @@ document.querySelectorAll('dialog').forEach(d => { d.addEventListener('click', (
       save()
     }
     function buy_numero8(){
-      if (money >= 3000){
+      if (money >= 8000){
         if (numero8_show == 1){
-          money -= 3000;
+          money -= 8000;
           numero8_show = 0;
           document.getElementById("acheter_numero8").style.backgroundColor = "gray";
         }
@@ -3791,9 +3860,9 @@ document.querySelectorAll('dialog').forEach(d => { d.addEventListener('click', (
       save()
     }
     function buy_numero9(){
-      if (money >= 3000){
+      if (money >= 12000){
         if (numero9_show == 1){
-          money -= 3000;
+          money -= 12000;
           numero9_show = 0;
           document.getElementById("acheter_numero9").style.backgroundColor = "gray";
         }
@@ -3808,9 +3877,9 @@ document.querySelectorAll('dialog').forEach(d => { d.addEventListener('click', (
       save()
     }
     function buy_numero10(){
-      if (money >= 3000){
+      if (money >= 20000){
         if (numero10_show == 1){
-          money -= 3000;
+          money -= 20000;
           numero10_show = 0;
           document.getElementById("acheter_numero10").style.backgroundColor = "gray";
         }
@@ -3825,9 +3894,9 @@ document.querySelectorAll('dialog').forEach(d => { d.addEventListener('click', (
       save()
     }
     function buy_numero11(){
-      if (money >= 3000){
+      if (money >= 50000){
         if (numero11_show == 1){
-          money -= 3000;
+          money -= 50000;
           numero11_show = 0;
           document.getElementById("acheter_numero11").style.backgroundColor = "gray";
         }
@@ -3862,24 +3931,616 @@ document.querySelectorAll('dialog').forEach(d => { d.addEventListener('click', (
         bottom: 10px;
       }
   </style>
+  
+  
+  
+  
+  <style>
+  @keyframes casinoclose{
+    0%{
+      transform:scale(4)
+      background:url('https://uploads.onecompiler.io/43a8hwuns/43fkhwhfx/Picsart_25-04-23_10-10-21-847.png');
+    }
+    100%{
+      rotate:500deg
+      
+    }
+  }
+    #testdealer {
+      display: none;
+      
+    }
+    #Wtip {
+      position: absolute;
+      left: 50%;
+      top: 35%;
+      color: white;
+      font-size: 200%;
+      font-weight: bold;
+      rotate: 14deg;
+    }
+    #Wrule {
+      position: absolute;
+      left: 5%;
+      top: 70%;
+      color: white;
+      font-size: 200%;
+      font-weight: bold;
+      rotate: -6deg;
+    }
+    #currentbiddisplay {
+      animation:infosinbj 1s ease-out;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      background:url('https://uploads.onecompiler.io/43a8hwuns/44nbngeky/image%20(22).avif') center/100% 100%;
+      padding: 2%;
+       padding-left: 5%;
+     padding-right: 5%;
+      
+      border-radius: 10px;
+      width: 30%;
+      text-align: center;
+      display: none;
+                  box-shadow: 0 0px 5px white;
+                  font-weight: bold;
+                  transition:all 1s ease;
+    }
+    #currentbiddisplay:hover{
+      opacity:0.7;
+    }
+    #displayvaluebj {
+      transform-origin:bottom;
+      animation:infosinbj ease-out 1s;
+      left:10%;
+      width:20%;
+      text-align:center;
+      position: absolute;
+      top: 45%;
+      padding:2%;
+      padding-left: 5%;
+     padding-right: 5%;
+   
+      border-radius: 10px;
+background:url('https://uploads.onecompiler.io/43a8hwuns/44nbngeky/image%20(21).avif') center/100% 100%;
+            box-shadow: 0 0px 5px white;
+            font-weight: bold;
+      display: none;
+      overflow:hidden;
+      transition:all 1s ease;
+    }
+    @keyframes plopinbj {
+      0%{transform:scale(0.0);
+        opacity:0;
+        width:0%;
+      }
+      50%{
+        transform: scale(1);
+
+
+        width:0%;
+      }
+      100%{
+        width:18%;
+                opacity:1;
+                animation-timing-function: ease-out;
+      }
+    }
+    @keyframes infosinbj {
+      0%{
+        transform:scale(1.2);
+        opacity:0;
+      }
+      100%{
+
+
+      }
+    }
+    #displayvaluebj:hover{
+      opacity:0.7;
+    }
+    #hitbj {
+      animation:plopinbj ease-out 1.2s;
+      position: absolute;
+      cursor: pointer;
+      width: 18%;
+      top: 75%;
+      left: 80%;
+      border: solid white 2px;
+      background-color: transparent;
+      color: white;
+      border-radius: 5px;
+      font-size: 180%;
+      display: none;
+      transition:all 0.5s ease;
+      box-shadow: 0 0px 9px black;
+      font-weight:bold;
+      overflow:hidden;
+    }
+    #hitbj:hover{
+      background-color:#388521;
+      box-shadow: 0 0px 4px white;
+      
+    }
+    #keepbj {
+            animation:plopinbj ease-out 1.2s;
+      position: absolute;
+      cursor: pointer;
+      top: 85%;
+      left: 80%;
+      width: 18%;
+      border: solid white 2px;
+      background-color: transparent;
+      color: white;
+      border-radius: 5px;
+      font-size: 180%;
+      display: none;
+            box-shadow: 0 0px 9px black;
+                  font-weight:bold;
+                  transition:0.5s ease;
+                        overflow:hidden;
+    }
+        #keepbj:hover{
+      background-color:#388521;
+      box-shadow: 0 0px 4px white;
+      
+    }
+    @keyframes cardin {
+      from { opacity: 0; top: 130%; }
+      to { opacity: 1; top: 70%; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes titlebounce {
+      0%, 50%, 100% { rotate: 0deg; }
+      25% { rotate: 6deg; }
+      75% { rotate: -6deg; }
+    }
+@keyframes popupbj {
+  0%{
+    opacity:0;
+    top:-100%;
+animation-timing-function: ease-out;
+  }
+
+  100%{
+    top:0%;
+    animation-timing-function: ease-in;
+    
+  }
+}
+    #casino {
+      width: 70%;
+      height: 70%;
+      background:url('https://uploads.onecompiler.io/43a8hwuns/44na5k42h/image%20(20).avif') center/100% 100% ;
+      border-radius: 5px;
+      border: solid #8F7A72 3px;
+      box-shadow: 0 25px 75px -12px black;
+      animation: fadeIn 1s ease-out;
+      overflow: hidden;
+    }
+    #titrecasino {
+      font-size: 300%;
+      font-weight: bold;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      animation: titlebounce 2s infinite linear;
+    }
+    #playblackjack {
+      position: absolute;
+      left: 15%;
+      top: 35%;
+      font-size: 100%;
+      height: 20%;
+      border: solid black 2px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #miseblackjack {
+      overflow:hidden;
+      animation: fadeIn 0.3s ease-out;
+      height:15%;
+      border-radius: 10px;
+      border:solid white 2px;
+      box-shadow: 0 5px 5px black;
+      background:url('https://uploads.onecompiler.io/43a8hwuns/44nbngeky/image%20(19).avif')center/100% 100% no-repeat;
+    }
+    
+#inputmisebj{
+  border-radius:5px;
+  border:solid white 2px;
+}
+#demarrerbj{
+  border-radius:4px;
+  background-color:white;
+  cursor:pointer;
+  font-weight:bold;
+  
+}
+    #carte1, #carte2, #carte3, #carte4, #carte5 {
+      position: absolute;
+      top: 130%;
+      background: url('https://uploads.onecompiler.io/43a8hwuns/44kfb64hu/Back-R.avif') center/100% 100% no-repeat;
+      width: 10%;
+      height:28%;
+      aspect-ratio: 5 / 5;
+      border-radius: 5px;
+      border: solid black 1px;
+      transition: all 1s ease;
+    }
+    #carte1 { left: 5%; }
+    #carte2 { left: 20%; }
+    #carte3 { left: 35%; }
+    #carte4 { left: 50%; }
+    #carte5 { left: 65%; }
+
+
+    #cartedealer1, #cartedealer2, #cartedealer3, #cartedealer4, #cartedealer5, #cartedealer6 {
+      position: absolute;
+      top: -30%;
+      background: url('https://uploads.onecompiler.io/43a8hwuns/44kfb64hu/Back-B.avif') center/100% 100% no-repeat;
+      width: 10%;
+      height:28%;
+      aspect-ratio: 5 / 5;
+      border-radius: 5px;
+      border: solid black 1px;
+      transition: all 1s ease;
+    }
+    #cartedealer1 { left: 5%; }
+    #cartedealer2 { left: 20%; }
+    #cartedealer3 { left: 35%; }
+    #cartedealer4 { left: 50%; }
+    #cartedealer5 { left: 65%; }
+    #cartedealer6 { left: 80%; }
+  </style>
+</head>
+<body>
+
+  <button onclick="document.getElementById('casino').showModal()">allo</button>
+
+  <dialog id="casino">
+    <button onclick="casino.close()" style="cursor:pointer" id="casinoclosebutton">X</button>
+    <p id="titrecasino">Casino très légal!!</p>
+    
+    <button id="playblackjack" onclick="document.getElementById('miseblackjack').showModal()">Jouer au Blackjack</button>
+    <p id="Wrule">En cas d'une égalité, TU PERD</p>
+    <p id="Wtip">Tu va gagner! n'abandonne jamais!</p>
+
+    <dialog id="miseblackjack">
+      <p align="center" id="textedemiselala"><b>Mise</b></p><br>
+      <input placeholder="Quelle est ta mise?" type="number" id="inputmisebj">
+      <button onclick="startblackjack()"id="demarrerbj">Démarrer</button>
+    </dialog>
+<style>
+  #textedemiselala{
+position:relative;
+    color:white;
+    font-size:300%;
+    top:50%;
+  }
+  
+</style>
+    <p id="displayvaluebj">Tu as: &nbsp;<span id="valeurcartes">yo</span></p>
+    <p id="currentbiddisplay"><span id="currentbid">0</span>&nbsp;$ est en jeu</p>
+    <span id="testdealer" style="color:white">aalloo</span>
+    
+    <button id="hitbj" onclick="draw3bj()">Piger</button>
+    <button id="keepbj" onclick="dealerdrawkeep()">Garder</button><br>
+    
+    
+    <div id="carte1"></div>
+    <div id="carte2"></div>
+    <div id="carte3"></div>
+    <div id="carte4"></div>
+    <div id="carte5"></div>
+    
+    <div id="cartedealer1"></div>
+    <div id="cartedealer2"></div>
+    <div id="cartedealer3"></div>
+    <div id="cartedealer4"></div>
+    <div id="cartedealer5"></div>
+    <div id="cartedealer6"></div>
+  </dialog> 
+  <dialog id="blackjackend" onclick="resetbj()">
+
+   
+    <button onclick="resetbj()" id="resetbjbutton"><span id="plusoumoinsbj"></span><span id="endamountblackjack"></span>$</button>
+    
+    
+    
+  </dialog>
+  <style>
+  #casinoclosebutton{
+    background-color:red;
+    border-radius:10px;
+    color:white;
+    border:solid white 2px;
+    transition:0.5s ease;
+  }
+      #casinoclosebutton:hover {
+    transform: scale(1.025) translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+  }
+    #blackjackend{
+      border-radius:6px;
+      border:none;
+      opacity:0.6;
+      height:12%;
+      width:30%;
+      overflow-y:hidden;
+      animation:popupbj 1s ease-out;
+      cursor:pointer;
+    }
+    #resetbjbutton{
+      position:absolute;
+      border:none;
+      width:30%;
+      left:10%;
+      align-content:center;
+      background-color:transparent;
+      cursor:pointer;
+    }
+#plusoumoinsbj{
+    font-size:500%;
+      font-weight:bold;
+}
+    #endamountblackjack{
+      font-size:500%;
+      font-weight:bold;
+
+    }
+  </style>
+  <script>
+    let pick = 1;
+    let numberas = 0;
+    let numberdealeras = 0;
+    let currentdraw = "";
+    let currentdrawdealer = "";
+    let currentvalue = 0;
+    let tuff = 0;
+    let hiddenDealerCardNum = 0;
+
+
+    function getCardBg(num) {
+      if (num === 1 || num === 2) {
+        return `url('https://uploads.onecompiler.io/43a8hwuns/44kfb64hu/S-${num}.avif') center/100% 100% no-repeat`;
+      }
+      return `url('https://uploads.onecompiler.io/43a8hwuns/44kxbe5vm/S-${num}.avif') center/100% 100% no-repeat`;
+    }
+
+    function startblackjack() {
+  const misebj = document.getElementById("inputmisebj");
+  const bidValue = misebj.value.trim() === "" ? 0 : misebj.value;
+if (bidValue<0){
+alert("Lâche sa t pas robuste")
+return;
+}
+if (bidValue>money){
+  alert("T trop pauvre, sale pauvre")
+  return;
+}
+  money -= parseInt(bidValue);
+  ref();
+  save();
+document.getElementById('casinoclosebutton').style.display = "none";
+  document.getElementById('currentbid').innerHTML = bidValue;
+  document.getElementById('endamountblackjack').textContent = bidValue;
+      document.getElementById('miseblackjack').close();
+      document.getElementById('playblackjack').style.display = "none";
+      document.getElementById('titrecasino').style.display = "none";
+      document.getElementById('Wrule').style.display = "none";
+      document.getElementById('Wtip').style.display = "none";
+      
+      numberdealeras = 0;
+      numberas = 0;
+      currentvalue = 0;
+      tuff = 0;
+      pick = 1;
+      
+      currentdraw = "carte1";
+      currentdrawdealer = "cartedealer1";
+      
+      drawbj();
+      drawdealerbj();
+      
+      setTimeout(() => {
+        currentdraw = "carte2";
+        currentdrawdealer = "cartedealer2";
+        drawbj();
+        drawdealerbj();
+       
+        document.getElementById('currentbiddisplay').style.display = "block";
+        document.getElementById('displayvaluebj').style.display = "block";
+      }, 1000);
+      setTimeout(() => {
+        document.getElementById('hitbj').style.display = "block";
+        document.getElementById('keepbj').style.display = "block";
+      },1600)
+    }
+
+    function draw3bj() {
+      if (pick === 3) {
+        currentdraw = "carte5";
+        drawbj();
+      } else if (pick === 2) {
+        currentdraw = "carte4";
+        drawbj();
+        pick = 3;
+      } else if (pick === 1) {
+        currentdraw = "carte3";
+        drawbj();
+        pick = 2;
+      }
+    }
+
+    function drawbj() {
+      const numerorandom = Math.floor(Math.random() * 13) + 1;
+      document.getElementById(currentdraw).style.top = "70%";
+
+      if (numerorandom === 1) numberas += 1;
+
+      setTimeout(() => { 
+        document.getElementById(currentdraw).style.background = getCardBg(numerorandom); 
+      }, 1000);
+
+
+      let cardValue = numerorandom;
+      if (cardValue > 10) cardValue = 10;
+      if (cardValue === 1) cardValue = 11;
+
+      currentvalue += cardValue;
+
+
+      while (currentvalue > 21 && numberas > 0) {
+        currentvalue -= 10;
+        numberas -= 1;
+      }
+
+      document.getElementById('valeurcartes').innerHTML = currentvalue;
+
+      if (currentvalue > 21) {
+        
+        document.getElementById('hitbj').style.display = "none";
+        document.getElementById('keepbj').style.display = "none";
+         document.getElementById('endamountblackjack').style.color = "red";
+          document.getElementById('plusoumoinsbj').innerHTML = "-";
+          setTimeout(() => { 
+          blackjackend.showModal(); 
+
+        }, 1000);
+        
+      }
+    }
+
+    function drawdealerbj() {
+      const numerorandomdealer = Math.floor(Math.random() * 13) + 1;
+      document.getElementById(currentdrawdealer).style.top = "5%";
+
+      if (numerorandomdealer === 1) numberdealeras += 1;
+
+      if (currentdrawdealer === "cartedealer1") {
+        
+        hiddenDealerCardNum = numerorandomdealer;
+      } else {
+        setTimeout(() => { 
+          document.getElementById(currentdrawdealer).style.background = getCardBg(numerorandomdealer); 
+        }, 800);
+      }
+
+
+      let cardValue = numerorandomdealer;
+      if (cardValue > 10) cardValue = 10;
+      if (cardValue === 1) cardValue = 11;
+
+      tuff += cardValue;
+
+
+      while (tuff > 21 && numberdealeras > 0) {
+        tuff -= 10;
+        numberdealeras -= 1;
+      }
+
+      document.getElementById('testdealer').innerHTML = tuff;
+    }
+
+    function dealerdrawkeep() {
+      document.getElementById('keepbj').style.display = "none";
+      document.getElementById('hitbj').style.display = "none";
+        document.getElementById('testdealer').style.display = "block";
+      
+
+      document.getElementById("cartedealer1").style.background = getCardBg(hiddenDealerCardNum);
+      
+      if (currentvalue > tuff) {
+        if (currentdrawdealer === "cartedealer2") {
+          currentdrawdealer = "cartedealer3";
+          drawdealerbj();
+          setTimeout(() => { dealerdrawkeep(); }, 850);
+          return;
+        }
+        if (currentdrawdealer === "cartedealer3") {
+          currentdrawdealer = "cartedealer4";
+          drawdealerbj();
+          setTimeout(() => { dealerdrawkeep(); }, 850);
+          return;
+        }
+        if (currentdrawdealer === "cartedealer4") {
+          currentdrawdealer = "cartedealer5";
+          drawdealerbj();
+          setTimeout(() => { dealerdrawkeep(); }, 850);
+          return;
+        }
+        if (currentdrawdealer === "cartedealer5") {
+          currentdrawdealer = "cartedealer6";
+          drawdealerbj();
+          setTimeout(() => { dealerdrawkeep(); }, 850);
+          return;
+        }
+      }
+                setTimeout(() => { 
+          blackjackend.showModal(); 
+                   
+        }, 1000);
+           document.getElementById('testdealer').style.display = "block";
+            document.getElementById('endamountblackjack').style.color="red"
+
+       document.getElementById('plusoumoinsbj').innerHTML="-"
+
+
+      if (tuff>21) {
+        document.getElementById('endamountblackjack').style.color="green"
+        document.getElementById('plusoumoinsbj').innerHTML="+"
+  money += parseInt(document.getElementById('currentbid').textContent*2);
+  ref();
+  save();
+      }
+      
+
+    }
+
+    function resetbj() {
+document.getElementById('casinoclosebutton').style.display = "block";
+      blackjackend.close()
+      for(let i=1; i<=5; i++) {
+        document.getElementById("carte" + i).style.top = "130%";
+        document.getElementById("carte" + i).style.background = "url('https://uploads.onecompiler.io/43a8hwuns/44kfb64hu/Back-R.avif') center/100% 100% no-repeat";
+        
+        document.getElementById("cartedealer" + i).style.top = "-30%";
+        document.getElementById("cartedealer" + i).style.background = "url('https://uploads.onecompiler.io/43a8hwuns/44kfb64hu/Back-B.avif') center/100% 100% no-repeat";
+         document.getElementById("cartedealer6").style.top = "-30%";
+        document.getElementById("cartedealer6").style.background = "url('https://uploads.onecompiler.io/43a8hwuns/44kfb64hu/Back-B.avif') center/100% 100% no-repeat";
+      }
+      
+      currentdraw = "carte1";
+      currentdrawdealer = "cartedealer1";
+      numberas = 0;
+      numberdealeras = 0;
+      pick = 1;
+      tuff = 0;
+      currentvalue = 0;
+      hiddenDealerCardNum = 0;
+      
+      document.getElementById('valeurcartes').innerHTML = currentvalue;
+      document.getElementById('hitbj').style.display = "none";
+      document.getElementById('keepbj').style.display = "none";
+      document.getElementById('currentbiddisplay').style.display = "none";
+      document.getElementById('displayvaluebj').style.display = "none";
+
+      document.getElementById('playblackjack').style.display = "block";
+      document.getElementById('titrecasino').style.display = "block";
+      document.getElementById('Wrule').style.display = "block";
+      document.getElementById('Wtip').style.display = "block";
+      document.getElementById('testdealer').style.display = "none";
+    }
+  </script>
+
+
   </body>
   
   
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

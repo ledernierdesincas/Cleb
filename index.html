@@ -966,6 +966,7 @@ setInterval(function () {
   
 <button onclick="complete_reset()" id="resetprogress">Réinitialiser ton progrès</button><br><br>
   <button onclick="entrerCodeDeTriche()" id="codetriche">Code de triche</button><br><br>
+  <button onclick="entrerGmailPro()" id="codetriche">Envoyer un commentaire</button><br><br>
  <button onclick="change_bg_ouvrir()" id="changebackground">Changer le fond d'écran</button><br><br>
 </dialog>
 <style>
@@ -1169,6 +1170,13 @@ setInterval(function () {
   <input type="text" id="code_entree" placeholder="Entrez un code de triche" />
   <input id="savetriche" type="button" value="Enregistrer" onclick="enregistrer_codeDeTriche()" />
 </dialog>
+<style>
+  
+</style>
+<dialog id="GmailPro">
+  <input type="text" id="message_entree" placeholder="Envoyez-nous vos commentaires" />
+<input id="savemessage" type="button" value="Enregistrer" onclick="enregistrer_messagedutilisateur_sympa()" />
+</dialog>
 
 <style>
 #tricheur{
@@ -1195,6 +1203,50 @@ color:lightgreen;
 </style>
 
 <script>
+  let message_generique = "j'aime bien";
+  const BIN_ID_SENDER_COM = "6a05e32eadc21f119a9d2714";
+  const API_KEY_SENDER_COM = "$2a$10$W/MLa6ZhivVvOVJyLtTPg.D/nk6igJqrBjdnDB1fJzUiQ5eWr7416";
+  const buton_saveenvoi_comments = document.getElementById("savemessage");
+
+
+function enregistrer_messagedutilisateur_sympa(){
+    const inputxmd2 = document.getElementById("message_entree");
+    message_generique = inputxmd2.value;
+    const message_entree = document.getElementById("message_entree").value;
+    if(message_entree === "") return;
+    buton_saveenvoi_comments.disabled = true;
+
+    fetch(`https://api.jsonbin.io/v3/b/${BIN_ID_SENDER_COM}`, {
+      headers: {'X-Master-Key': API_KEY_SENDER_COM}
+    })
+      .then(r => r.json())
+      .then(data => {
+        const NouvelleListeNouvelle = data.record.comment;
+        NouvelleListeNouvelle.push(message_entree);
+        fetch(`https://api.jsonbin.io/v3/b/${BIN_ID_SENDER_COM}`, {
+          method: "PUT",
+          headers: {
+            'Content-Type': "application/json",
+            'X-Master-Key': API_KEY_SENDER_COM
+          },
+          body: JSON.stringify({comment: NouvelleListeNouvelle})
+        })
+        .then(() => buton_saveenvoi_comments.disabled = false)
+      })
+    
+    message_generique = "j'aime bien"
+    alert("merci :)")
+    inputxmd2.value = "";
+
+  }
+
+
+
+
+
+
+
+
   function change_for_img(choix){
     if (choix == 1){
       bk_image_select = "https://uploads.onecompiler.io/43a8hwuns/44hh473wq/image%20(10).avif";
@@ -1272,6 +1324,10 @@ color:lightgreen;
   function entrerCodeDeTriche(){
     i_parametre.close();
     tricheur.showModal();
+  }
+  function entrerGmailPro(){
+    i_parametre.close();
+    GmailPro.showModal();
   }
   function enregistrer_codeDeTriche(){
     const inputxmd = document.getElementById("code_entree");

@@ -12,8 +12,8 @@ exports.handler = async (event) => {
       quantity: 1,
     }],
     mode: 'payment',
-    success_url: 'https://CLEB01.netlify.app/?paye=true',
-    cancel_url: 'https://CLEB01.netlify.app/',
+    success_url: 'https://cleb01.netlify.app/?paye=true',
+    cancel_url: 'https://cleb01.netlify.app/',
   });
 
   return {

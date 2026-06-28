@@ -6,8 +6,8 @@ exports.handler = async (event) => {
     line_items: [{
       price_data: {
         currency: 'cad',
-        product_data: { name: 'Mode Premium' },
-        unit_amount: 499,
+        product_data: { name: '1 000 000 $' },
+        unit_amount: 253,
       },
       quantity: 1,
     }],

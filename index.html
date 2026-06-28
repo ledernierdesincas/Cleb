@@ -218,7 +218,7 @@
 
         
         //Démarage de la musique
-        setTimeout(playMusic,3000)
+        setTimeout(playMusic,10000)
     </script>
 
 	<div id="background1"></div>
@@ -269,6 +269,7 @@ async function acheter_boost() {
 }
 
 if (new URLSearchParams(window.location.search).get('achat2') === 'true') {
+	
   	alert("Merci ! Vous recevez 50 000 boost !!");
 	boost += 50001;
 	ref()
@@ -279,16 +280,16 @@ if (new URLSearchParams(window.location.search).get('achat2') === 'true') {
 	
   <body>
   <button id="achat0" onclick="acheter_rien()">Achetez 1 000 000 de monnaie : 2,53$</button>
-		<button id="achat2" onclick="acheter_boost()">Achetez 50 000 boost : 1,28$</button>
+	<button id="achat2_50" onclick="acheter_boost()">Achetez 50 000 boost : 1,28$</button>
 	  <style>
 		  #achat0{
 			  position:absolute;
 			  top:0px;
 			  right:0px;
 		  }
-		  #achat2{
-			  position: absolute;
-			  top:20px;
+		  #achat2_50{
+			  position:absolute;
+			  top:100px;
 			  right:0px;
 		  }
 	  </style>

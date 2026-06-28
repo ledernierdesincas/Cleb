@@ -219,7 +219,17 @@
 
         
         //Démarage de la musique
-        setTimeout(playMusic,11000)
+        document.addEventListener('click', function() {
+  // Musique
+  playMusic();
+  
+  // Plein écran + paysage
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().then(() => {
+      screen.orientation?.lock('landscape').catch(() => {});
+    });
+  }
+}, { once: true });
     </script>
 
 	<div id="background1"></div>

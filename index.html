@@ -250,14 +250,17 @@ async function acheter_rien() {
 
 const params = new URLSearchParams(window.location.search);
 if (params.get('paye') === 'true') {
-  alert("Merci ! Mode premium activé 🎉 (t'as officielement rien obtenu)");
+	
+    alert("Merci ! Vous recevez 1 000 000 $!!");
+  	money += 1000000;
+	ref();
   // ici tu débloque ta fonctionnalité
 }
 </script>
   <!--tente la chance-->
 	
   <body>
-  <button id="achat0" onclick="acheter_rien()">mode trop cher pour rien à seulement 2,53$</button>
+  <button id="achat0" onclick="acheter_rien()">Achetez 1 000 000 de monnaie : 2,53$</button>
 	  <style>
 		  #achat0{
 			  position:absolute;
